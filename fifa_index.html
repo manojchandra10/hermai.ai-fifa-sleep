@@ -714,8 +714,8 @@
             <div>
               <div class="card-tag">How much sleep has your fanbase lost?</div>
               <div class="card-team" id="cardTeam">Japan supporters</div>
-              <!-- <div class="card-hours"><span id="cardHours">495m</span>h</div> -->
-              <div class="card-hours"><span id="cardHours">495mh</span></div>
+              <div class="card-hours"><span id="cardHours">495m</span>h</div>
+              <!-- <div class="card-hours"><span id="cardHours">495mh</span></div> -->
               <div class="card-rank" id="cardRank">#1 biggest collective sleep toll</div>
             </div>
             <div class="card-bottom">
@@ -911,7 +911,7 @@
       document.getElementById("statMean").textContent = `${row.meanHours.toFixed(1)}h`;
       document.getElementById("statZone").textContent = row.city;
 
-      document.getElementById("heroHours").textContent = `${shortHours(coll)} h`;
+      document.getElementById("heroHours").textContent = `${shortHours(coll)}h`;
       document.getElementById("heroTeam").textContent = row.team;
       document.getElementById("heroYears").textContent = yearsText(collYearsOf(row));
       document.getElementById("heroLabel").textContent = cRank === 1
