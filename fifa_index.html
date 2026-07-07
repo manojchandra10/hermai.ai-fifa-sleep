@@ -6,6 +6,22 @@
   <meta name="theme-color" content="#031a2d">
   <title>How much sleep has your fanbase lost?</title>
   <meta name="description" content="How much sleep has your fanbase lost? All 48 World Cup fanbases ranked by collective sleep toll.">
+  <link rel="canonical" href="https://manojchandra10.github.io/hermai.ai-fifa-sleep/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="World Cup Sleep Cost">
+  <meta property="og:title" content="How much sleep has your World Cup fanbase lost?">
+  <meta property="og:description" content="All 48 World Cup fanbases ranked by their collective sleep toll.">
+  <meta property="og:url" content="https://manojchandra10.github.io/hermai.ai-fifa-sleep/">
+  <meta property="og:image" content="https://manojchandra10.github.io/hermai.ai-fifa-sleep/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Japan supporters have collectively lost 495 million hours of sleep.">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How much sleep has your World Cup fanbase lost?">
+  <meta name="twitter:description" content="All 48 World Cup fanbases ranked by their collective sleep toll.">
+  <meta name="twitter:image" content="https://manojchandra10.github.io/hermai.ai-fifa-sleep/social-preview.png">
+  <meta name="twitter:image:alt" content="Japan supporters have collectively lost 495 million hours of sleep.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -113,6 +129,10 @@
       color:var(--muted);
     }
     .top-link:hover { color:var(--white); border-color:rgba(255,255,255,.35); }
+    .hermai-top {
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
 
     .hero {
       padding:76px 0 44px;
@@ -190,11 +210,32 @@
       top:-115px;
     }
     .hero-number {
+      display:flex;
+      align-items:baseline;
+      flex-wrap:wrap;
+      gap:8px 12px;
       font-family:"Barlow Condensed",sans-serif;
-      font-size:6.2rem;
       font-weight:900;
-      line-height:.9;
+      line-height:.86;
       color:var(--cherry);
+      text-transform:uppercase;
+    }
+    .hero-number-value {
+      font-size:clamp(4.6rem,8vw,6.2rem);
+      letter-spacing:-.04em;
+    }
+    .hero-number-scale {
+      font-size:clamp(1.8rem,3.1vw,2.6rem);
+      letter-spacing:.035em;
+    }
+    .hero-number-unit {
+      margin-top:4px;
+      color:var(--white);
+      font-family:"Barlow Condensed",sans-serif;
+      font-size:1.45rem;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
     }
     .hero-label {
       margin-top:10px;
@@ -335,12 +376,21 @@
       text-transform:uppercase;
     }
     .card-hours {
+      display:flex;
+      align-items:baseline;
+      flex-wrap:nowrap;
+      gap:.14em;
       font-family:"Barlow Condensed",sans-serif;
-      font-size:clamp(7rem,15vw,11rem);
-      line-height:.72;
+      font-size:clamp(5rem,11vw,8.5rem);
+      line-height:.78;
       font-weight:900;
-      letter-spacing:-.06em;
+      letter-spacing:-.045em;
       margin:28px 0 18px;
+      white-space:nowrap;
+    }
+    .card-hours-word {
+      font-size:.38em;
+      letter-spacing:.01em;
     }
     .card-rank {
       font-family:"Barlow Condensed",sans-serif;
@@ -478,6 +528,23 @@
     .method {
       padding:0 0 64px;
     }
+    .method-intro {
+      margin-bottom:18px;
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:24px;
+      background:rgba(7,39,68,.65);
+    }
+    .method-intro h2 {
+      font-size:2.2rem;
+      margin-bottom:8px;
+    }
+    .method-intro p {
+      max-width:880px;
+      margin:0;
+      color:var(--muted);
+      line-height:1.65;
+    }
     .method-grid {
       display:grid;
       grid-template-columns:repeat(4,1fr);
@@ -530,10 +597,32 @@
       .method-grid { grid-template-columns:1fr 1fr; }
     }
     @media (max-width:620px) {
-      .top-actions { display:none; }
+      .topbar-inner { gap:10px; }
+      .brand {
+        gap:8px;
+        font-size:.92rem;
+        letter-spacing:.055em;
+      }
+      .brand-mark {
+        width:36px;
+        height:36px;
+        flex:0 0 auto;
+      }
+      .top-actions {
+        display:flex;
+        gap:6px;
+        margin-left:auto;
+      }
+      .desktop-nav { display:none; }
+      .hermai-top {
+        gap:6px !important;
+        padding:6px 9px !important;
+        font-size:11px !important;
+      }
       .hero { padding-top:50px; }
       h1 { font-size:clamp(3.2rem,12vw,9.4rem); }
-      .hero-number { font-size:clamp(3.4rem,14vw,6.2rem); }
+      .hero-number-value { font-size:clamp(3.6rem,16vw,5rem); }
+      .hero-number-scale { font-size:clamp(1.45rem,7vw,2rem); }
 
       .panel-body { padding:18px; }
       .panel-head { flex-direction:column; align-items:flex-start; gap:12px; padding:20px 18px 16px; }
@@ -663,8 +752,16 @@
         World Cup Sleep Cost
       </a>
       <div class="top-actions">
-        <a class="top-link" href="#ranking">Full ranking</a>
-        <!-- <a class="top-link" href="#method">Method</a> -->
+        <a class="hermai-top" href="https://hermai.ai" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;text-decoration:none;font-family:inherit;font-size:13px;font-weight:600;line-height:1;color:#fff;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);">
+          <svg width="18" height="18" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="#0d1210"/>
+            <rect x="10" y="8" width="4" height="16" fill="#fff"/>
+            <rect x="18" y="8" width="4" height="16" fill="#fff"/>
+            <rect x="12" y="14" width="8" height="4" fill="#fff"/>
+          </svg>
+          <span style="opacity:.75">Data via</span><span>Hermai.ai</span>
+        </a>
+        <a class="top-link desktop-nav" href="#ranking">Full ranking</a>
       </div>
     </div>
   </nav>
@@ -676,14 +773,17 @@
           <div class="eyebrow">World Cup fanbase ranking</div>
           <h1>How much sleep<span>has your fanbase lost?</span></h1>
           <p class="hero-copy">
-            We converted every completed match into each fanbase's home time zone,
-            measured the part that sat inside a <strong>23:00–07:00 sleep window</strong>,
-            and ranked all 48 fanbases.
+            Late kick-offs have cost World Cup supporters millions of hours of sleep.
+            Find out how much your fanbase has lost.
           </p>
           <div class="tagline" id="tagline">Some fans lose matches. Others lose sleep.</div>
         </div>
         <aside class="hero-side">
-          <div class="hero-number" id="heroHours">495mh</div>
+          <div class="hero-number">
+            <span class="hero-number-value" id="heroHours">495</span>
+            <span class="hero-number-scale" id="heroScale">MILLION</span>
+          </div>
+          <div class="hero-number-unit">hours</div>
           <div class="hero-label" id="heroLabel">Japan supporters carry the biggest collective sleep toll.</div>
           <div class="hero-rank">
             <div><strong id="heroTeam">Japan</strong><span>Top fanbase</span></div>
@@ -720,8 +820,7 @@
             <div>
               <div class="card-tag">How much sleep has your fanbase lost?</div>
               <div class="card-team" id="cardTeam">Japan supporters</div>
-              <div class="card-hours"><span id="cardHours">495m</span>h</div>
-              <!-- <div class="card-hours"><span id="cardHours">495mh</span></div> -->
+              <div class="card-hours"><span id="cardHours">495M</span><span class="card-hours-word">Hours</span></div>
               <div class="card-rank" id="cardRank">#1 biggest collective sleep toll</div>
             </div>
             <div class="card-bottom">
@@ -746,7 +845,7 @@
       <aside class="panel">
         <div class="panel-head">
           <div>
-            <h2 id="matchTitle">Algeria match log</h2>
+            <h2 id="matchTitle">Japan match log</h2>
             <p>Local kick-off and estimated sleep overlap.</p>
           </div>
         </div>
@@ -788,6 +887,15 @@
     </section>
 
     <section class="shell method" id="method">
+      <div class="method-intro">
+        <h2>How the sleep cost is calculated</h2>
+        <p>
+          Every completed match is converted into each fanbase's representative home time zone.
+          We then measure how much of the 120-minute viewing period falls inside a 23:00–07:00
+          sleep window. Collective totals multiply the per-supporter estimate by national
+          population as a simple fanbase-size proxy.
+        </p>
+      </div>
       <div class="method-grid">
         <div class="method-card"><strong>23–07</strong><p>Normal sleep window used for the main ranking.</p></div>
         <div class="method-card"><strong>120</strong><p>Minutes assigned to each match from kick-off.</p></div>
@@ -845,10 +953,48 @@
       if (hours >= 1e3) return Math.round(hours / 1e3) + "k";
       return hoursText(hours);
     }
+
+    function collectiveDisplayValue(hours) {
+      if (hours >= 1e9) {
+        return (hours / 1e9).toFixed(1).replace(/\.0$/, "") + "B";
+      }
+      if (hours >= 1e6) {
+        return Math.round(hours / 1e6).toLocaleString("en-GB") + "M";
+      }
+      if (hours >= 1e3) {
+        return Math.round(hours / 1e3).toLocaleString("en-GB") + "K";
+      }
+      return Math.round(hours).toLocaleString("en-GB");
+    }
     function bigHoursText(hours) {
       if (hours >= 1e9) return (hours / 1e9).toFixed(2) + " billion";
       if (hours >= 1e6) return (hours / 1e6).toFixed(1).replace(/\.0$/, "") + " million";
       return Math.round(hours).toLocaleString("en-GB");
+    }
+
+    function heroHoursParts(hours) {
+      if (hours >= 1e9) {
+        return {
+          value: (hours / 1e9).toFixed(1).replace(/\.0$/, ""),
+          scale: "BILLION"
+        };
+      }
+      if (hours >= 1e6) {
+        return {
+          value: Math.round(hours / 1e6).toLocaleString("en-GB"),
+          scale: "MILLION"
+        };
+      }
+      if (hours >= 1e3) {
+        return {
+          value: Math.round(hours / 1e3).toLocaleString("en-GB"),
+          scale: "THOUSAND"
+        };
+      }
+      return {
+        value: Math.round(hours).toLocaleString("en-GB"),
+        scale: ""
+      };
     }
 
     const byCollective = rankings.slice().sort(
@@ -884,7 +1030,7 @@
         <tr data-team="${row.team}" class="${row.team === activeTeam ? "active" : ""}">
           <td><span class="rank-badge ${shownRank <= 3 ? "rank-top" : ""}">${shownRank}</span></td>
           <td><b>${row.team}</b><br><small style="color:var(--muted)">${row.city}</small></td>
-          <td class="hours-cell">${shortHours(collHoursOf(row))}h</td>
+          <td class="hours-cell">${collectiveDisplayValue(collHoursOf(row))} Hours</td>
           <td>${hoursText(row.sleepHours)}h</td>
           <td>${row.affectedMatches}/${row.matches}</td>
           <td><span class="cluster">${row.cluster || "—"}</span></td>
@@ -908,7 +1054,7 @@
       const cRank = collRank.get(row.team);
 
       document.getElementById("cardTeam").textContent = `${row.team} supporters`;
-      document.getElementById("cardHours").textContent = shortHours(coll);
+      document.getElementById("cardHours").textContent = collectiveDisplayValue(coll);
       document.getElementById("cardRank").textContent = `#${cRank} biggest collective sleep toll`;
       document.getElementById("cardPerFan").textContent = `${hoursText(row.sleepHours)}h per supporter`;
       document.getElementById("cardAffected").textContent =
@@ -917,7 +1063,9 @@
       document.getElementById("statMean").textContent = `${row.meanHours.toFixed(1)}h`;
       document.getElementById("statZone").textContent = row.city;
 
-      document.getElementById("heroHours").textContent = `${shortHours(coll)}h`;
+      const heroParts = heroHoursParts(coll);
+      document.getElementById("heroHours").textContent = heroParts.value;
+      document.getElementById("heroScale").textContent = heroParts.scale;
       document.getElementById("heroTeam").textContent = row.team;
       document.getElementById("heroYears").textContent = yearsText(collYearsOf(row));
       document.getElementById("heroLabel").textContent = cRank === 1
