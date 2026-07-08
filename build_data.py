@@ -100,6 +100,32 @@ ALIASES = {
     "Congo DR": "DR Congo",
 }
 
+MATCH_TEAM_OVERRIDES = {
+    73: ("South Africa", "Canada"),
+    74: ("Germany", "Paraguay"),
+    75: ("Netherlands", "Morocco"),
+    76: ("Brazil", "Japan"),
+    77: ("France", "Sweden"),
+    78: ("Ivory Coast", "Norway"),
+    79: ("Mexico", "Ecuador"),
+    80: ("England", "DR Congo"),
+    81: ("United States", "Bosnia & Herzegovina"),
+    82: ("Belgium", "Senegal"),
+    83: ("Portugal", "Croatia"),
+    84: ("Spain", "Austria"),
+    85: ("Switzerland", "Algeria"),
+    86: ("Argentina", "Cape Verde"),
+    87: ("Colombia", "Ghana"),
+    88: ("Australia", "Egypt"),
+    89: ("Paraguay", "France"),
+    90: ("Canada", "Morocco"),
+    91: ("Brazil", "Norway"),
+    92: ("Mexico", "England"),
+    93: ("Portugal", "Spain"),
+    94: ("United States", "Belgium"),
+    95: ("Argentina", "Egypt"),
+    96: ("Switzerland", "Colombia"),
+}
 STAGE_LABELS = {
     "group-stage": "Group stage",
     "round-of-32": "Round of 32",
@@ -291,8 +317,18 @@ def compute_rankings(
         #         skipped_unknown_sides += 1
         #         continue
         
-        raw_home = fixture.get("homeTeam")
-        raw_away = fixture.get("awayTeam")
+        # raw_home = fixture.get("homeTeam")
+        # raw_away = fixture.get("awayTeam")
+
+        match_number = int(fixture["matchNumber"])
+        
+        raw_home, raw_away = MATCH_TEAM_OVERRIDES.get(
+            match_number,
+            (
+                fixture.get("homeTeam"),
+                fixture.get("awayTeam"),
+            ),
+        )
         
         home = canonical_team(raw_home)
         away = canonical_team(raw_away)
