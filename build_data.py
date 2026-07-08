@@ -100,32 +100,6 @@ ALIASES = {
     "Congo DR": "DR Congo",
 }
 
-MATCH_TEAM_OVERRIDES = {
-    73: ("South Africa", "Canada"),
-    74: ("Germany", "Paraguay"),
-    75: ("Netherlands", "Morocco"),
-    76: ("Brazil", "Japan"),
-    77: ("France", "Sweden"),
-    78: ("Ivory Coast", "Norway"),
-    79: ("Mexico", "Ecuador"),
-    80: ("England", "DR Congo"),
-    81: ("United States", "Bosnia & Herzegovina"),
-    82: ("Belgium", "Senegal"),
-    83: ("Portugal", "Croatia"),
-    84: ("Spain", "Austria"),
-    85: ("Switzerland", "Algeria"),
-    86: ("Argentina", "Cape Verde"),
-    87: ("Colombia", "Ghana"),
-    88: ("Australia", "Egypt"),
-    89: ("Paraguay", "France"),
-    90: ("Canada", "Morocco"),
-    91: ("Brazil", "Norway"),
-    92: ("Mexico", "England"),
-    93: ("Portugal", "Spain"),
-    94: ("United States", "Belgium"),
-    95: ("Argentina", "Egypt"),
-    96: ("Switzerland", "Colombia"),
-}
 STAGE_LABELS = {
     "group-stage": "Group stage",
     "round-of-32": "Round of 32",
@@ -303,32 +277,9 @@ def compute_rankings(
         # viewing period used by the model has ended.
         if kickoff + timedelta(minutes=MATCH_MINUTES) > now_utc:
             continue
-
-        # counted_matches += 1
-
-        # home = canonical_team(fixture.get("homeTeam"))
-        # away = canonical_team(fixture.get("awayTeam"))
-
-        # for team, opponent_raw in (
-        #     (home, fixture.get("awayTeam")),
-        #     (away, fixture.get("homeTeam")),
-        # ):
-        #     if team is None:
-        #         skipped_unknown_sides += 1
-        #         continue
         
-        # raw_home = fixture.get("homeTeam")
-        # raw_away = fixture.get("awayTeam")
-
-        match_number = int(fixture["matchNumber"])
-        
-        raw_home, raw_away = MATCH_TEAM_OVERRIDES.get(
-            match_number,
-            (
-                fixture.get("homeTeam"),
-                fixture.get("awayTeam"),
-            ),
-        )
+        raw_home = fixture.get("homeTeam")
+        raw_away = fixture.get("awayTeam")
         
         home = canonical_team(raw_home)
         away = canonical_team(raw_away)
@@ -337,15 +288,7 @@ def compute_rankings(
             skipped_unknown_sides += int(home is None)
             skipped_unknown_sides += int(away is None)
         
-            unresolved_fixtures.append(
-                {
-                    "matchNumber": fixture.get("matchNumber"),
-                    "stage": fixture.get("stage"),
-                    "kickoffUtc": fixture.get("kickoffUtc"),
-                    "homeTeam": raw_home,
-                    "awayTeam": raw_away,
-                }
-            )
+            unresolved_fixtures.append(dict(fixture))
             continue
         
         counted_matches += 1
@@ -379,8 +322,8 @@ def compute_rankings(
             )
 
     if unresolved_fixtures:
-        print(
-            "UNRESOLVED COMPLETED FIXTURES:\n"
+        raise RuntimeError(
+            "Completed fixtures contain unresolved teams:\n"
             + json.dumps(
                 unresolved_fixtures,
                 indent=2,
