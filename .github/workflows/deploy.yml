@@ -39,6 +39,7 @@ jobs:
           mkdir -p site
           cp fifa_index.html site/index.html
           cp social-preview.png site/social-preview.png
+          cp football.png site/football.png
           python build_data.py site/index.html
 
       - name: Configure GitHub Pages
