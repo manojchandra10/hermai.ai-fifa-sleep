@@ -16,7 +16,7 @@ import sys
 import urllib.error
 import urllib.request
 from collections import defaultdict
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
@@ -24,8 +24,8 @@ from zoneinfo import ZoneInfo
 
 API_URL = "https://api.hermai.ai/v1/fetch"
 REQUEST_BODY = {
-    "site": "thestatsapi.com",
-    "endpoint": "world_cup_fixtures",
+    "site": "fifa.com",
+    "endpoint": "world_cup_matches",
 }
 
 SLEEP_START_MINUTE = 23 * 60
@@ -143,9 +143,9 @@ def get_key() -> str:
         )
     return key
 
-
 def fetch_fixtures(key: str) -> list[dict[str, Any]]:
     payload = json.dumps(REQUEST_BODY).encode("utf-8")
+
     request = urllib.request.Request(
         API_URL,
         data=payload,
@@ -178,21 +178,25 @@ def fetch_fixtures(key: str) -> list[dict[str, Any]]:
         error_report(message)
         raise RuntimeError(message) from exc
 
-    fixtures = result.get("data", {}).get("fixtures")
-    if result.get("success") is not True or not isinstance(fixtures, list):
+    results = result.get("data", {}).get("Results")
+
+    if result.get("success") is not True or not isinstance(results, list):
         message = (
             "Unexpected Hermai response. Expected "
-            "{success: true, data: {fixtures: [...]}}."
+            "{success: true, data: {Results: [...]}}."
         )
         error_report(message)
         raise RuntimeError(message)
 
+    fixtures = [normalise_match(match) for match in results]
+
     if len(fixtures) != 104:
-        message = f"Expected 104 fixtures; received {len(fixtures)}."
+        message = f"Expected 104 matches; received {len(fixtures)}."
         error_report(message)
         raise RuntimeError(message)
 
     match_numbers = []
+
     for fixture in fixtures:
         try:
             match_numbers.append(int(fixture["matchNumber"]))
@@ -202,12 +206,11 @@ def fetch_fixtures(key: str) -> list[dict[str, Any]]:
             raise RuntimeError(message) from exc
 
     if sorted(match_numbers) != list(range(1, 105)):
-        message = "Fixture match numbers are not exactly 1 through 104."
+        message = "Match numbers are not exactly 1 through 104."
         error_report(message)
         raise RuntimeError(message)
 
     return fixtures
-
 
 def canonical_team(value: Any) -> str | None:
     if value is None:
@@ -218,7 +221,37 @@ def canonical_team(value: Any) -> str | None:
         return name
     return ALIASES.get(name)
 
+def first_description(value: Any) -> str | None:
+    if not isinstance(value, list) or not value:
+        return None
 
+    first = value[0]
+    if not isinstance(first, dict):
+        return None
+
+    description = first.get("Description")
+    return str(description).strip() if description else None
+
+
+def normalise_match(match: dict[str, Any]) -> dict[str, Any]:
+    home = match.get("Home") or {}
+    away = match.get("Away") or {}
+
+    return {
+        "matchNumber": int(match["MatchNumber"]),
+        "kickoffUtc": match.get("Date"),
+        "matchStatus": match.get("MatchStatus"),
+        "homeTeam": first_description(home.get("TeamName")),
+        "awayTeam": first_description(away.get("TeamName")),
+        "homeScore": home.get("Score"),
+        "awayScore": away.get("Score"),
+        "winner": match.get("Winner"),
+        "stage": first_description(match.get("StageName")),
+        "group": match.get("GroupName"),
+        "stadium": "",
+        "hostCity": "",
+    }
+    
 def stage_label(value: Any) -> str:
     raw = str(value or "Match").strip()
     key = raw.lower()
@@ -270,13 +303,10 @@ def compute_rankings(
     unresolved_fixtures: list[dict[str, Any]] = []
 
     for fixture in fixtures:
-        kickoff = parse_utc(fixture.get("kickoffUtc"))
-
-        # The API schema supplied by the client has no match-status field.
-        # To avoid counting a live match, wait until the same 120-minute
-        # viewing period used by the model has ended.
-        if kickoff + timedelta(minutes=MATCH_MINUTES) > now_utc:
+        if fixture.get("matchStatus") not in (0, "0"):
             continue
+    
+        kickoff = parse_utc(fixture.get("kickoffUtc"))
         
         raw_home = fixture.get("homeTeam")
         raw_away = fixture.get("awayTeam")
@@ -526,15 +556,19 @@ def main() -> None:
         fixture_payload = json.loads(
             args.fixtures_file.read_text(encoding="utf-8")
         )
-        fixtures = (
-            fixture_payload.get("data", {}).get("fixtures")
+
+        results = (
+            fixture_payload.get("data", {}).get("Results")
             if isinstance(fixture_payload, dict)
             else fixture_payload
         )
-        if not isinstance(fixtures, list):
+
+        if not isinstance(results, list):
             raise RuntimeError(
-                "The local fixture file does not contain a fixture array."
+                "The local fixture file does not contain a Results array."
             )
+
+        fixtures = [normalise_match(match) for match in results]
     else:
         fixtures = fetch_fixtures(get_key())
 
