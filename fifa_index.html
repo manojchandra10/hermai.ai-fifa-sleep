@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#031a2d">
   <title>FIFA Sleep Cost</title>
   <link rel="icon" type="image/png" href="./football.png?v=2">
+
   <meta name="description" content="How much sleep has your fanbase lost? All 48 World Cup fanbases ranked by collective sleep toll.">
   <link rel="canonical" href="https://fifaworldcupsleep.me/">
   <meta property="og:type" content="website">
@@ -17,18 +18,16 @@
   <meta property="og:image:secure_url" content="https://fifaworldcupsleep.me/social-preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <!-- <meta property="og:image:alt" content="Japan supporters have collectively lost 495 million hours of sleep."> -->
-  <meta property="og:image:alt" content="United States supporters' World Cup collective sleep toll.">
-
+  <meta property="og:image:alt" content="World Cup fanbase collective sleep toll.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How much sleep has your World Cup fanbase lost?">
   <meta name="twitter:description" content="All 48 World Cup fanbases ranked by their collective sleep toll.">
   <meta name="twitter:image" content="https://fifaworldcupsleep.me/social-preview.png">
-  <!-- <meta name="twitter:image:alt" content="Japan supporters have collectively lost 495 million hours of sleep."> -->
-  <meta name="twitter:image:alt" content="United States supporters' World Cup collective sleep toll.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --navy:#031a2d;
@@ -43,11 +42,12 @@
       --blue:#2457ff;
       --line:rgba(255,255,255,.14);
       --panel:rgba(7,39,68,.82);
+      --panel-solid:#062b49;
       --shadow:0 28px 80px rgba(0,0,0,.34);
     }
 
     * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
+    html { scroll-behaviour:smooth; scroll-behavior:smooth; }
     body {
       margin:0;
       min-height:100vh;
@@ -55,7 +55,7 @@
       background:
         radial-gradient(circle at 88% 5%, rgba(255,63,142,.25), transparent 28%),
         radial-gradient(circle at 8% 18%, rgba(0,215,255,.22), transparent 30%),
-        linear-gradient(145deg, #02111e 0%, var(--navy) 42%, #071f36 100%);
+        linear-gradient(145deg,#02111e 0%,var(--navy) 42%,#071f36 100%);
       font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       overflow-x:hidden;
     }
@@ -67,14 +67,16 @@
       pointer-events:none;
       opacity:.12;
       background-image:
-        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
       background-size:44px 44px;
-      mask-image:linear-gradient(to bottom, black, transparent 78%);
+      mask-image:linear-gradient(to bottom,black,transparent 78%);
     }
 
     a { color:inherit; }
     button,select,input { font:inherit; }
+    button { -webkit-tap-highlight-color:transparent; }
+    [hidden] { display:none !important; }
     .shell { width:min(1220px,calc(100% - 32px)); margin:0 auto; }
 
     .topbar {
@@ -133,15 +135,26 @@
       color:var(--muted);
     }
     .top-link:hover { color:var(--white); border-color:rgba(255,255,255,.35); }
-    .hermai-top {
-      white-space:nowrap;
-      flex:0 0 auto;
-    }
 
-    .hero {
-      padding:76px 0 44px;
-      position:relative;
+    .hermai-badge {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 12px;
+      border-radius:999px;
+      text-decoration:none;
+      font-family:inherit;
+      font-size:13px;
+      font-weight:600;
+      line-height:1;
+      color:#171b1f;
+      background:#fbfaf8;
+      border:1px solid #cdc8bf;
+      white-space:nowrap;
     }
+    .hermai-badge .via { opacity:.65; }
+
+    .hero { padding:76px 0 44px; position:relative; }
     .hero-grid {
       display:grid;
       grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);
@@ -191,6 +204,11 @@
       line-height:1.65;
     }
     .hero-copy strong { color:var(--white); }
+    .tagline {
+      margin-top:18px;
+      color:var(--white);
+      font-weight:800;
+    }
     .hero-side {
       min-height:280px;
       border:1px solid var(--line);
@@ -224,14 +242,8 @@
       color:var(--cherry);
       text-transform:uppercase;
     }
-    .hero-number-value {
-      font-size:clamp(4.6rem,8vw,6.2rem);
-      letter-spacing:-.04em;
-    }
-    .hero-number-scale {
-      font-size:clamp(1.8rem,3.1vw,2.6rem);
-      letter-spacing:.035em;
-    }
+    .hero-number-value { font-size:clamp(4.6rem,8vw,6.2rem); letter-spacing:-.04em; }
+    .hero-number-scale { font-size:clamp(1.8rem,3.1vw,2.6rem); letter-spacing:.035em; }
     .hero-number-unit {
       margin-top:4px;
       color:var(--white);
@@ -241,12 +253,7 @@
       letter-spacing:.12em;
       text-transform:uppercase;
     }
-    .hero-label {
-      margin-top:10px;
-      color:var(--muted);
-      font-size:.95rem;
-      max-width:260px;
-    }
+    .hero-label { margin-top:10px; color:var(--muted); font-size:.95rem; max-width:290px; }
     .hero-rank {
       margin-top:24px;
       display:flex;
@@ -304,7 +311,8 @@
       text-transform:uppercase;
       letter-spacing:.1em;
     }
-    select {
+    .team-picker { position:relative; }
+    select,.team-search {
       width:100%;
       color:var(--white);
       background:#062844;
@@ -313,7 +321,35 @@
       padding:14px 15px;
       outline:none;
     }
-    select:focus { border-color:var(--cyan); box-shadow:0 0 0 3px rgba(0,215,255,.14); }
+    select:focus,.team-search:focus {
+      border-color:var(--cyan);
+      box-shadow:0 0 0 3px rgba(0,215,255,.14);
+    }
+    .suggest {
+      position:absolute;
+      z-index:25;
+      left:0;
+      right:0;
+      top:calc(100% + 8px);
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#062844;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .suggest button {
+      display:block;
+      width:100%;
+      border:0;
+      border-bottom:1px solid var(--line);
+      padding:12px 14px;
+      text-align:left;
+      color:var(--white);
+      background:transparent;
+      cursor:pointer;
+    }
+    .suggest button:last-child { border-bottom:0; }
+    .suggest button:hover { background:rgba(0,215,255,.08); }
     .jump {
       border:0;
       border-radius:14px;
@@ -323,6 +359,16 @@
       font-weight:900;
       cursor:pointer;
     }
+    .icon-btn {
+      width:50px;
+      height:50px;
+      display:grid;
+      place-items:center;
+      padding:0;
+    }
+    #iconClose { display:none; }
+    .icon-btn[aria-pressed="true"] #iconSearch { display:none; }
+    .icon-btn[aria-pressed="true"] #iconClose { display:block; }
 
     .result-card {
       position:relative;
@@ -392,10 +438,7 @@
       margin:28px 0 18px;
       white-space:nowrap;
     }
-    .card-hours-word {
-      font-size:.38em;
-      letter-spacing:.01em;
-    }
+    .card-hours-word { font-size:.38em; letter-spacing:.01em; }
     .card-rank {
       font-family:"Barlow Condensed",sans-serif;
       font-size:1.9rem;
@@ -411,11 +454,7 @@
       padding-top:18px;
       font-size:.78rem;
     }
-    .card-bottom b {
-      display:block;
-      font-size:.95rem;
-      margin-bottom:4px;
-    }
+    .card-bottom b { display:block; font-size:.95rem; margin-bottom:4px; }
 
     .stat-grid {
       display:grid;
@@ -474,6 +513,7 @@
       color:var(--cyan);
       text-align:right;
     }
+    .empty-log { color:var(--muted); margin:0; }
 
     .ranking-section { padding:12px 0 48px; }
     .ranking-panel { padding:0; }
@@ -486,7 +526,33 @@
       padding:11px 15px;
       outline:none;
     }
-    .table-wrap { overflow:auto; }
+    .sort-row {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      padding:16px 26px;
+    }
+    .sort-btn {
+      border:1px solid var(--line);
+      background:transparent;
+      color:var(--muted);
+      padding:8px 16px;
+      border-radius:999px;
+      font-family:"Barlow Condensed",sans-serif;
+      font-weight:700;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+    .sort-btn.active { background:var(--cyan); border-color:var(--cyan); color:var(--navy); }
+
+    .ranking-viewport {
+      position:relative;
+      overflow:hidden;
+      transition:max-height .38s ease;
+    }
+    .table-wrap { overflow-x:auto; overflow-y:hidden; }
     table { width:100%; border-collapse:collapse; min-width:820px; }
     th,td { padding:15px 18px; border-bottom:1px solid var(--line); text-align:left; }
     th {
@@ -495,8 +561,6 @@
       letter-spacing:.1em;
       text-transform:uppercase;
       background:rgba(3,26,45,.58);
-      position:sticky;
-      top:0;
     }
     tbody tr { cursor:pointer; transition:.15s ease; }
     tbody tr:hover { background:rgba(0,215,255,.07); }
@@ -529,9 +593,67 @@
       font-weight:700;
     }
 
-    .method {
-      padding:0 0 64px;
+    .ranking-fade {
+      position:absolute;
+      z-index:3;
+      left:0;
+      right:0;
+      bottom:0;
+      height:118px;
+      pointer-events:none;
+      background:linear-gradient(
+        to bottom,
+        rgba(6,43,73,0) 0%,
+        rgba(6,43,73,.76) 46%,
+        rgba(6,43,73,.98) 100%
+      );
     }
+    .ranking-expand-wrap {
+      position:relative;
+      z-index:4;
+      display:flex;
+      justify-content:center;
+      padding:0 20px 22px;
+      margin-top:-18px;
+      background:linear-gradient(to bottom,rgba(6,43,73,.98),rgba(4,30,52,.96));
+    }
+    .ranking-expand {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      min-width:230px;
+      border:0;
+      color:var(--white);
+      background:transparent;
+      padding:0 18px 8px;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .ranking-expand-icon {
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(255,255,255,.7);
+      border-radius:50%;
+      transition:transform .25s ease,background .2s ease;
+      background:rgba(3,26,45,.72);
+    }
+    .ranking-expand:hover .ranking-expand-icon,
+    .ranking-expand:focus-visible .ranking-expand-icon {
+      background:rgba(0,215,255,.14);
+      border-color:var(--cyan);
+    }
+    .ranking-expand[aria-expanded="true"] .ranking-expand-icon { transform:rotate(180deg); }
+    .ranking-expand-label {
+      font-family:"Barlow Condensed",sans-serif;
+      font-size:1.18rem;
+      letter-spacing:.045em;
+      text-transform:uppercase;
+    }
+
+    .method { padding:0 0 64px; }
     .method-intro {
       margin-bottom:18px;
       border:1px solid var(--line);
@@ -539,21 +661,9 @@
       padding:24px;
       background:rgba(7,39,68,.65);
     }
-    .method-intro h2 {
-      font-size:2.2rem;
-      margin-bottom:8px;
-    }
-    .method-intro p {
-      max-width:880px;
-      margin:0;
-      color:var(--muted);
-      line-height:1.65;
-    }
-    .method-grid {
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:14px;
-    }
+    .method-intro h2 { font-size:2.2rem; margin-bottom:8px; }
+    .method-intro p { max-width:880px; margin:0; color:var(--muted); line-height:1.65; }
+    .method-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
     .method-card {
       border:1px solid var(--line);
       border-radius:20px;
@@ -582,18 +692,6 @@
       align-items:center;
       flex-wrap:wrap;
     }
-    .hermai {
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:9px 13px;
-      text-decoration:none;
-      color:var(--white);
-      font-weight:700;
-    }
-    .hermai::before { content:""; width:9px; height:9px; border-radius:50%; background:var(--cyan); box-shadow:0 0 14px var(--cyan); }
 
     @media (max-width:900px) {
       .hero-grid,.main-grid { grid-template-columns:1fr; }
@@ -602,149 +700,37 @@
     }
     @media (max-width:620px) {
       .topbar-inner { gap:10px; }
-      .brand {
-        gap:8px;
-        font-size:.92rem;
-        letter-spacing:.055em;
-      }
-      .brand-mark {
-        width:36px;
-        height:36px;
-        flex:0 0 auto;
-      }
-      .top-actions {
-        display:flex;
-        gap:6px;
-        margin-left:auto;
-      }
-      .desktop-nav { display:none; }
-      .hermai-top {
-        gap:6px !important;
-        padding:6px 9px !important;
-        font-size:11px !important;
-      }
+      .brand { gap:8px; font-size:.92rem; letter-spacing:.055em; }
+      .brand-mark { width:36px; height:36px; flex:0 0 auto; }
+      .top-actions { gap:6px; margin-left:auto; }
+      .top-link { display:none; }
+      .hermai-badge { gap:6px; padding:6px 9px; font-size:11px; }
       .hero { padding-top:50px; }
       h1 { font-size:clamp(3.2rem,12vw,9.4rem); }
       .hero-number-value { font-size:clamp(3.6rem,16vw,5rem); }
       .hero-number-scale { font-size:clamp(1.45rem,7vw,2rem); }
-
       .panel-body { padding:18px; }
       .panel-head { flex-direction:column; align-items:flex-start; gap:12px; padding:20px 18px 16px; }
-      .panel-head h2 { font-size:1.7rem;}
-      .searchbar { width:100%;}
-      .sort-row { padding:16px 18px 14px;}
-
-      /* Keep the dropdown and the search icon on one row */
+      .panel-head h2 { font-size:1.7rem; }
+      .searchbar { width:100%; }
+      .sort-row { padding:16px 18px 14px; }
       .control-row { grid-template-columns:1fr auto; align-items:end; }
       .stat-grid,.actions,.method-grid { grid-template-columns:1fr; }
-
-      /* Trim the table to what fits a phone; the rest opens on row tap */
       table { min-width:0; }
       th,td { padding:12px 8px; font-size:.88rem; }
-      th:nth-child(5), td:nth-child(5),
-      th:nth-child(6), td:nth-child(6) { display:none; }
-
+      th:nth-child(5),td:nth-child(5),
+      th:nth-child(6),td:nth-child(6) { display:none; }
       .result-card { min-height:auto; padding:22px; }
       .card-tag { white-space:normal; width:auto; }
       .card-team { font-size:clamp(1.7rem,7vw,3rem); }
       .card-hours { font-size:clamp(3.6rem,17vw,7rem); margin:16px 0 12px; }
       .card-rank { font-size:1.3rem; }
       .card-bottom { flex-direction:column; align-items:flex-start; }
+      .ranking-fade { height:96px; }
+      .ranking-expand-wrap { padding-bottom:18px; }
     }
     @media (prefers-reduced-motion:reduce) {
       * { scroll-behavior:auto !important; transition:none !important; }
-    }
-    .team-picker { position:relative; }
-    .team-search {
-      width:100%;
-      color:var(--white);
-      background:#062844;
-      border:1px solid rgba(255,255,255,.22);
-      border-radius:14px;
-      padding:14px 15px;
-      outline:none;
-    }
-    .team-search:focus { border-color:var(--cyan); box-shadow:0 0 0 3px rgba(0,215,255,.14); }
-    .team-search::placeholder { color:var(--muted); }
-    .icon-btn {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:52px;
-      height:52px;
-      padding:0;
-    }
-    #iconClose { display:none; }
-    .icon-btn[aria-pressed="true"] #iconSearch { display:none; }
-    .icon-btn[aria-pressed="true"] #iconClose { display:block; }
-    .suggest {
-      position:absolute;
-      top:calc(100% + 8px);
-      left:0;
-      right:0;
-      z-index:30;
-      background:#062844;
-      border:1px solid rgba(255,255,255,.22);
-      border-radius:14px;
-      max-height:280px;
-      overflow-y:auto;
-      box-shadow:var(--shadow);
-    }
-    .suggest button {
-      display:block;
-      width:100%;
-      text-align:left;
-      border:0;
-      background:transparent;
-      color:var(--white);
-      padding:12px 15px;
-      cursor:pointer;
-      font-weight:600;
-    }
-    .suggest button:hover, .suggest button:focus { background:rgba(0,215,255,.16); outline:none; }
-    .suggest .suggest-rank { color:var(--cyan); font-weight:900; margin-right:8px; }
-    .suggest .suggest-empty { padding:12px 15px; color:var(--muted); }
-
-    .tagline {
-      margin-top:16px;
-      font-family:"Barlow Condensed",sans-serif;
-      font-weight:700;
-      font-size:21px;
-      letter-spacing:.05em;
-      text-transform:uppercase;
-      color:var(--cyan);
-      min-height:1.5em;
-    }
-
-    /* .sort-row {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      padding:0 26px 16px;
-    } */
-    .sort-row {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      padding:16px 26px 16px;
-    }
-    .sort-btn {
-      border:1px solid var(--line);
-      background:transparent;
-      color:var(--muted);
-      padding:8px 16px;
-      border-radius:999px;
-      font-family:"Barlow Condensed",sans-serif;
-      font-weight:700;
-      font-size:15px;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      cursor:pointer;
-    }
-    .sort-btn.active {
-      background:var(--cyan);
-      border-color:var(--cyan);
-      color:var(--navy);
     }
   </style>
 </head>
@@ -756,16 +742,16 @@
         World Cup Sleep Cost
       </a>
       <div class="top-actions">
-        <a class="hermai-top" href="https://hermai.ai" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;text-decoration:none;font-family:inherit;font-size:13px;font-weight:600;line-height:1;color:#fff;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);">
+        <a class="hermai-badge" href="https://hermai.ai" target="_blank" rel="noopener noreferrer">
           <svg width="18" height="18" viewBox="0 0 32 32" aria-hidden="true">
             <rect width="32" height="32" rx="7" fill="#0d1210"/>
             <rect x="10" y="8" width="4" height="16" fill="#fff"/>
             <rect x="18" y="8" width="4" height="16" fill="#fff"/>
             <rect x="12" y="14" width="8" height="4" fill="#fff"/>
           </svg>
-          <span style="opacity:.75">Data via</span><span>Hermai.ai</span>
+          <span class="via">Data via</span><span>Hermai.ai</span>
         </a>
-        <a class="top-link desktop-nav" href="#ranking">Full ranking</a>
+        <a class="top-link" href="#ranking">Full ranking</a>
       </div>
     </div>
   </nav>
@@ -777,15 +763,17 @@
           <div class="eyebrow">World Cup fanbase ranking</div>
           <h1>How much sleep<span>has your fanbase lost?</span></h1>
           <p class="hero-copy">
-            Late kick-offs have cost World Cup supporters millions of hours of sleep.
-            Find out how much your fanbase has lost.
+            We converted every completed match into each fanbase's home time zone,
+            measured the part that sat inside a <strong>23:00–07:00 sleep window</strong>,
+            and ranked all 48 fanbases.
           </p>
-          <div class="tagline" id="tagline">Some fans lose matches. Others lose sleep.</div>
+          <div class="tagline">Some fans lose matches. Others lose sleep.</div>
         </div>
+
         <aside class="hero-side">
           <div class="hero-number">
-            <span class="hero-number-value" id="heroHours">495</span>
-            <span class="hero-number-scale" id="heroScale">MILLION</span>
+            <span class="hero-number-value" id="heroHoursValue">495</span>
+            <span class="hero-number-scale" id="heroHoursScale">MILLION</span>
           </div>
           <div class="hero-number-unit">hours</div>
           <div class="hero-label" id="heroLabel">Japan supporters carry the biggest collective sleep toll.</div>
@@ -795,7 +783,6 @@
           </div>
         </aside>
       </div>
-
     </section>
 
     <section class="shell main-grid">
@@ -806,6 +793,7 @@
             <p>Pick a team and create a share card.</p>
           </div>
         </div>
+
         <div class="panel-body">
           <div class="control-row">
             <div class="team-picker">
@@ -815,8 +803,12 @@
               <div class="suggest" id="teamSuggest" hidden></div>
             </div>
             <button class="jump icon-btn" id="searchToggle" type="button" aria-label="Search for a fanbase" aria-pressed="false">
-              <svg id="iconSearch" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
-              <svg id="iconClose" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+              <svg id="iconSearch" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+              </svg>
+              <svg id="iconClose" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+                <line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line>
+              </svg>
             </button>
           </div>
 
@@ -828,7 +820,10 @@
               <div class="card-rank" id="cardRank">#1 biggest collective sleep toll</div>
             </div>
             <div class="card-bottom">
-              <div><b id="cardPerFan">4h per supporter</b><span id="cardAffected">2 of 4 matches in the sleep window</span></div>
+              <div>
+                <b id="cardPerFan">4h per supporter</b>
+                <span id="cardAffected">2 of 4 matches in the sleep window</span>
+              </div>
               <div><b>Data via hermai.ai</b></div>
             </div>
           </div>
@@ -836,12 +831,12 @@
           <div class="stat-grid">
             <div class="stat"><strong id="statYears">56,530</strong><span>years of sleep, combined</span></div>
             <div class="stat"><strong id="statMean">2.0h</strong><span>mean overlap per match</span></div>
-            <div class="stat"><strong id="statZone">Algiers</strong><span>representative home zone</span></div>
+            <div class="stat"><strong id="statZone">Tokyo</strong><span>representative home zone</span></div>
           </div>
 
           <div class="actions">
-            <button class="btn btn-primary" id="downloadCard">Download share card</button>
-            <button class="btn btn-secondary" id="copyPost">Copy launch post</button>
+            <button class="btn btn-primary" id="downloadCard" type="button">Download share card</button>
+            <button class="btn btn-secondary" id="copyPost" type="button">Copy launch post</button>
           </div>
         </div>
       </article>
@@ -868,24 +863,46 @@
           </div>
           <input class="searchbar" id="search" type="search" placeholder="Search fanbase">
         </div>
+
         <div class="sort-row" role="group" aria-label="Ranking order">
           <button class="sort-btn active" id="sortCollective" type="button">Biggest collective toll</button>
           <button class="sort-btn" id="sortPerFan" type="button">Most sleep-deprived per fan</button>
         </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>Fanbase</th>
-                <th>Collective toll</th>
-                <th>Hours per fan</th>
-                <th>Matches affected</th>
-                <th>Pattern</th>
-              </tr>
-            </thead>
-            <tbody id="rankingBody"></tbody>
-          </table>
+
+        <div class="ranking-viewport" id="rankingViewport">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Fanbase</th>
+                  <th>Collective toll</th>
+                  <th>Hours per fan</th>
+                  <th>Matches affected</th>
+                  <th>Pattern</th>
+                </tr>
+              </thead>
+              <tbody id="rankingBody"></tbody>
+            </table>
+          </div>
+          <div class="ranking-fade" id="rankingFade" aria-hidden="true"></div>
+        </div>
+
+        <div class="ranking-expand-wrap" id="rankingExpandWrap">
+          <button
+            class="ranking-expand"
+            id="rankingExpand"
+            type="button"
+            aria-expanded="false"
+            aria-controls="rankingBody"
+          >
+            <span class="ranking-expand-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 9l7 7 7-7"></path>
+              </svg>
+            </span>
+            <span class="ranking-expand-label" id="rankingExpandLabel">View all 48 fanbases</span>
+          </button>
         </div>
       </article>
     </section>
@@ -900,6 +917,7 @@
           population as a simple fanbase-size proxy.
         </p>
       </div>
+
       <div class="method-grid">
         <div class="method-card"><strong>23:00–07:00</strong><p>Normal sleep window used for the main ranking.</p></div>
         <div class="method-card"><strong>120</strong><p>Minutes assigned to each match from kick-off.</p></div>
@@ -912,100 +930,108 @@
   <footer class="footer">
     <div class="shell footer-inner">
       <div>
-        <span id="snapshotNote">Estimate based on completed matches through 5 July 2026, 10:18 UTC.</span>
+        <span id="snapshotNote">Estimate based on the latest completed matches.</span>
         Supporter totals use national population as a simple proxy and do not represent measured audiences.
         <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures" target="_blank" rel="noreferrer">Official match page</a>.
       </div>
-      <a class="hermai" href="https://hermai.ai" target="_blank" rel="noreferrer">Data via hermai.ai</a>
+      <a class="hermai-badge" href="https://hermai.ai" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0d1210"/>
+          <rect x="10" y="8" width="4" height="16" fill="#fff"/>
+          <rect x="18" y="8" width="4" height="16" fill="#fff"/>
+          <rect x="12" y="14" width="8" height="4" fill="#fff"/>
+        </svg>
+        <span class="via">Data via</span><span>Hermai.ai</span>
+      </a>
     </div>
   </footer>
 
   <script>
     /* HERMAI_DATA_START */
-    const snapshotUtc = "2026-07-05T10:18:00Z";
-    const rankings = [{"rank": 1, "team": "Algeria", "city": "Algiers", "timezone": "Africa/Algiers", "matches": 4, "affectedMatches": 4, "sleepHours": 8.0, "meanHours": 2.0, "maxHours": 2.0, "affectedShare": 1.0, "yearsPerMillion": 913.2420091324201, "cluster": "moderate impact", "meanRank": 1.4444444444444444, "bestRank": 1, "worstRank": 4, "firstPlaceScenarios": 7, "details": [{"opponent": "Argentina", "stage": "Group stage", "localKickoff": "2026-06-17 02:00:00+01:00", "sleepHours": 2.0, "venue": "Arrowhead Stadium", "hostCity": "Kansas City"}, {"opponent": "Jordan", "stage": "Group stage", "localKickoff": "2026-06-23 04:00:00+01:00", "sleepHours": 2.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}, {"opponent": "Austria", "stage": "Group stage", "localKickoff": "2026-06-28 03:00:00+01:00", "sleepHours": 2.0, "venue": "Arrowhead Stadium", "hostCity": "Kansas City"}, {"opponent": "Switzerland", "stage": "Round of 32", "localKickoff": "2026-07-03 04:00:00+01:00", "sleepHours": 2.0, "venue": "BC Place", "hostCity": "Vancouver"}]}, {"rank": 2, "team": "Morocco", "city": "Casablanca", "timezone": "Africa/Casablanca", "matches": 5, "affectedMatches": 4, "sleepHours": 8.0, "meanHours": 1.6, "maxHours": 2.0, "affectedShare": 0.8, "yearsPerMillion": 913.2420091324201, "cluster": "moderate impact", "meanRank": 3.6666666666666665, "bestRank": 2, "worstRank": 7, "firstPlaceScenarios": 0, "details": [{"opponent": "Brazil", "stage": "Group stage", "localKickoff": "2026-06-13 23:00:00+01:00", "sleepHours": 2.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}, {"opponent": "Scotland", "stage": "Group stage", "localKickoff": "2026-06-19 23:00:00+01:00", "sleepHours": 2.0, "venue": "Gillette Stadium", "hostCity": "Foxborough"}, {"opponent": "Haiti", "stage": "Group stage", "localKickoff": "2026-06-24 23:00:00+01:00", "sleepHours": 2.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}, {"opponent": "Netherlands", "stage": "Round of 32", "localKickoff": "2026-06-30 02:00:00+01:00", "sleepHours": 2.0, "venue": "Estadio BBVA", "hostCity": "Monterrey"}, {"opponent": "Canada", "stage": "Round of 16", "localKickoff": "2026-07-04 18:00:00+01:00", "sleepHours": 0.0, "venue": "NRG Stadium", "hostCity": "Houston"}]}, {"rank": 3, "team": "Croatia", "city": "Zagreb", "timezone": "Europe/Zagreb", "matches": 4, "affectedMatches": 4, "sleepHours": 7.0, "meanHours": 1.75, "maxHours": 2.0, "affectedShare": 1.0, "yearsPerMillion": 799.0867579908676, "cluster": "moderate impact", "meanRank": 3.4444444444444446, "bestRank": 2, "worstRank": 6, "firstPlaceScenarios": 0, "details": [{"opponent": "England", "stage": "Group stage", "localKickoff": "2026-06-17 22:00:00+02:00", "sleepHours": 1.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}, {"opponent": "Panama", "stage": "Group stage", "localKickoff": "2026-06-24 01:00:00+02:00", "sleepHours": 2.0, "venue": "BMO Field", "hostCity": "Toronto"}, {"opponent": "Ghana", "stage": "Group stage", "localKickoff": "2026-06-27 23:00:00+02:00", "sleepHours": 2.0, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}, {"opponent": "Portugal", "stage": "Round of 32", "localKickoff": "2026-07-03 01:00:00+02:00", "sleepHours": 2.0, "venue": "BMO Field", "hostCity": "Toronto"}]}, {"rank": 4, "team": "Scotland", "city": "Edinburgh", "timezone": "Europe/London", "matches": 3, "affectedMatches": 3, "sleepHours": 6.0, "meanHours": 2.0, "maxHours": 2.0, "affectedShare": 1.0, "yearsPerMillion": 684.931506849315, "cluster": "moderate impact", "meanRank": 8.0, "bestRank": 4, "worstRank": 20, "firstPlaceScenarios": 0, "details": [{"opponent": "Haiti", "stage": "Group stage", "localKickoff": "2026-06-14 02:00:00+01:00", "sleepHours": 2.0, "venue": "Gillette Stadium", "hostCity": "Foxborough"}, {"opponent": "Morocco", "stage": "Group stage", "localKickoff": "2026-06-19 23:00:00+01:00", "sleepHours": 2.0, "venue": "Gillette Stadium", "hostCity": "Foxborough"}, {"opponent": "Brazil", "stage": "Group stage", "localKickoff": "2026-06-24 23:00:00+01:00", "sleepHours": 2.0, "venue": "Hard Rock Stadium", "hostCity": "Miami Gardens"}]}, {"rank": 5, "team": "Tunisia", "city": "Tunis", "timezone": "Africa/Tunis", "matches": 3, "affectedMatches": 3, "sleepHours": 6.0, "meanHours": 2.0, "maxHours": 2.0, "affectedShare": 1.0, "yearsPerMillion": 684.931506849315, "cluster": "moderate impact", "meanRank": 7.222222222222222, "bestRank": 2, "worstRank": 16, "firstPlaceScenarios": 0, "details": [{"opponent": "Sweden", "stage": "Group stage", "localKickoff": "2026-06-15 03:00:00+01:00", "sleepHours": 2.0, "venue": "Estadio BBVA", "hostCity": "Monterrey"}, {"opponent": "Japan", "stage": "Group stage", "localKickoff": "2026-06-21 05:00:00+01:00", "sleepHours": 2.0, "venue": "Estadio BBVA", "hostCity": "Monterrey"}, {"opponent": "Netherlands", "stage": "Group stage", "localKickoff": "2026-06-26 00:00:00+01:00", "sleepHours": 2.0, "venue": "Arrowhead Stadium", "hostCity": "Kansas City"}]}, {"rank": 6, "team": "Australia", "city": "Sydney", "timezone": "Australia/Sydney", "matches": 4, "affectedMatches": 3, "sleepHours": 6.0, "meanHours": 1.5, "maxHours": 2.0, "affectedShare": 0.75, "yearsPerMillion": 684.931506849315, "cluster": "moderate impact", "meanRank": 8.333333333333334, "bestRank": 3, "worstRank": 18, "firstPlaceScenarios": 0, "details": [{"opponent": "Türkiye", "stage": "Group stage", "localKickoff": "2026-06-15 02:00:00+10:00", "sleepHours": 2.0, "venue": "BC Place", "hostCity": "Vancouver"}, {"opponent": "United States", "stage": "Group stage", "localKickoff": "2026-06-20 05:00:00+10:00", "sleepHours": 2.0, "venue": "Lumen Field", "hostCity": "Seattle"}, {"opponent": "Paraguay", "stage": "Group stage", "localKickoff": "2026-06-26 12:00:00+10:00", "sleepHours": 0.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}, {"opponent": "Egypt", "stage": "Round of 32", "localKickoff": "2026-07-04 04:00:00+10:00", "sleepHours": 2.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}]}, {"rank": 7, "team": "Sweden", "city": "Stockholm", "timezone": "Europe/Stockholm", "matches": 4, "affectedMatches": 3, "sleepHours": 6.0, "meanHours": 1.5, "maxHours": 2.0, "affectedShare": 0.75, "yearsPerMillion": 684.931506849315, "cluster": "moderate impact", "meanRank": 7.777777777777778, "bestRank": 6, "worstRank": 11, "firstPlaceScenarios": 0, "details": [{"opponent": "Tunisia", "stage": "Group stage", "localKickoff": "2026-06-15 04:00:00+02:00", "sleepHours": 2.0, "venue": "Estadio BBVA", "hostCity": "Monterrey"}, {"opponent": "Netherlands", "stage": "Group stage", "localKickoff": "2026-06-20 19:00:00+02:00", "sleepHours": 0.0, "venue": "NRG Stadium", "hostCity": "Houston"}, {"opponent": "Japan", "stage": "Group stage", "localKickoff": "2026-06-26 01:00:00+02:00", "sleepHours": 2.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}, {"opponent": "France", "stage": "Round of 32", "localKickoff": "2026-06-30 23:00:00+02:00", "sleepHours": 2.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}]}, {"rank": 8, "team": "France", "city": "Paris", "timezone": "Europe/Paris", "matches": 5, "affectedMatches": 3, "sleepHours": 6.0, "meanHours": 1.2, "maxHours": 2.0, "affectedShare": 0.6, "yearsPerMillion": 684.931506849315, "cluster": "moderate impact", "meanRank": 10.333333333333334, "bestRank": 1, "worstRank": 24, "firstPlaceScenarios": 2, "details": [{"opponent": "Senegal", "stage": "Group stage", "localKickoff": "2026-06-16 21:00:00+02:00", "sleepHours": 0.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}, {"opponent": "Iraq", "stage": "Group stage", "localKickoff": "2026-06-22 23:00:00+02:00", "sleepHours": 2.0, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}, {"opponent": "Norway", "stage": "Group stage", "localKickoff": "2026-06-26 21:00:00+02:00", "sleepHours": 0.0, "venue": "Gillette Stadium", "hostCity": "Foxborough"}, {"opponent": "Sweden", "stage": "Round of 32", "localKickoff": "2026-06-30 23:00:00+02:00", "sleepHours": 2.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}, {"opponent": "Paraguay", "stage": "Round of 16", "localKickoff": "2026-07-04 23:00:00+02:00", "sleepHours": 2.0, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}]}, {"rank": 9, "team": "Iraq", "city": "Baghdad", "timezone": "Asia/Baghdad", "matches": 3, "affectedMatches": 3, "sleepHours": 5.0, "meanHours": 1.6666666666666667, "maxHours": 2.0, "affectedShare": 1.0, "yearsPerMillion": 570.7762557077625, "cluster": "moderate impact", "meanRank": 7.888888888888889, "bestRank": 5, "worstRank": 11, "firstPlaceScenarios": 0, "details": [{"opponent": "Norway", "stage": "Group stage", "localKickoff": "2026-06-17 01:00:00+03:00", "sleepHours": 2.0, "venue": "Gillette Stadium", "hostCity": "Foxborough"}, {"opponent": "France", "stage": "Group stage", "localKickoff": "2026-06-23 00:00:00+03:00", "sleepHours": 2.0, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}, {"opponent": "Senegal", "stage": "Group stage", "localKickoff": "2026-06-26 22:00:00+03:00", "sleepHours": 1.0, "venue": "BMO Field", "hostCity": "Toronto"}]}, {"rank": 10, "team": "Netherlands", "city": "Amsterdam", "timezone": "Europe/Amsterdam", "matches": 4, "affectedMatches": 3, "sleepHours": 5.0, "meanHours": 1.25, "maxHours": 2.0, "affectedShare": 0.75, "yearsPerMillion": 570.7762557077625, "cluster": "moderate impact", "meanRank": 11.333333333333334, "bestRank": 9, "worstRank": 18, "firstPlaceScenarios": 0, "details": [{"opponent": "Japan", "stage": "Group stage", "localKickoff": "2026-06-14 22:00:00+02:00", "sleepHours": 1.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}, {"opponent": "Sweden", "stage": "Group stage", "localKickoff": "2026-06-20 19:00:00+02:00", "sleepHours": 0.0, "venue": "NRG Stadium", "hostCity": "Houston"}, {"opponent": "Tunisia", "stage": "Group stage", "localKickoff": "2026-06-26 01:00:00+02:00", "sleepHours": 2.0, "venue": "Arrowhead Stadium", "hostCity": "Kansas City"}, {"opponent": "Morocco", "stage": "Round of 32", "localKickoff": "2026-06-30 03:00:00+02:00", "sleepHours": 2.0, "venue": "Estadio BBVA", "hostCity": "Monterrey"}]}, {"rank": 11, "team": "Paraguay", "city": "Asunción", "timezone": "America/Asuncion", "matches": 5, "affectedMatches": 3, "sleepHours": 5.0, "meanHours": 1.0, "maxHours": 2.0, "affectedShare": 0.6, "yearsPerMillion": 570.7762557077625, "cluster": "moderate impact", "meanRank": 14.88888888888889, "bestRank": 10, "worstRank": 24, "firstPlaceScenarios": 0, "details": [{"opponent": "United States", "stage": "Group stage", "localKickoff": "2026-06-12 22:00:00-03:00", "sleepHours": 1.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}, {"opponent": "Türkiye", "stage": "Group stage", "localKickoff": "2026-06-20 00:00:00-03:00", "sleepHours": 2.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}, {"opponent": "Australia", "stage": "Group stage", "localKickoff": "2026-06-25 23:00:00-03:00", "sleepHours": 2.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}, {"opponent": "Germany", "stage": "Round of 32", "localKickoff": "2026-06-29 17:30:00-03:00", "sleepHours": 0.0, "venue": "Gillette Stadium", "hostCity": "Foxborough"}, {"opponent": "France", "stage": "Round of 16", "localKickoff": "2026-07-04 18:00:00-03:00", "sleepHours": 0.0, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}]}, {"rank": 12, "team": "Iran", "city": "Tehran", "timezone": "Asia/Tehran", "matches": 3, "affectedMatches": 3, "sleepHours": 4.0, "meanHours": 1.3333333333333333, "maxHours": 2.0, "affectedShare": 1.0, "yearsPerMillion": 456.62100456621005, "cluster": "moderate impact", "meanRank": 16.88888888888889, "bestRank": 8, "worstRank": 29, "firstPlaceScenarios": 0, "details": [{"opponent": "New Zealand", "stage": "Group stage", "localKickoff": "2026-06-16 04:30:00+03:30", "sleepHours": 2.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}, {"opponent": "Belgium", "stage": "Group stage", "localKickoff": "2026-06-21 22:30:00+03:30", "sleepHours": 1.5, "venue": "SoFi Stadium", "hostCity": "Inglewood"}, {"opponent": "Egypt", "stage": "Group stage", "localKickoff": "2026-06-27 06:30:00+03:30", "sleepHours": 0.5, "venue": "Lumen Field", "hostCity": "Seattle"}]}, {"rank": 13, "team": "Qatar", "city": "Doha", "timezone": "Asia/Qatar", "matches": 3, "affectedMatches": 3, "sleepHours": 4.0, "meanHours": 1.3333333333333333, "maxHours": 2.0, "affectedShare": 1.0, "yearsPerMillion": 456.62100456621005, "cluster": "moderate impact", "meanRank": 15.555555555555555, "bestRank": 6, "worstRank": 25, "firstPlaceScenarios": 0, "details": [{"opponent": "Switzerland", "stage": "Group stage", "localKickoff": "2026-06-13 22:00:00+03:00", "sleepHours": 1.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}, {"opponent": "Canada", "stage": "Group stage", "localKickoff": "2026-06-19 01:00:00+03:00", "sleepHours": 2.0, "venue": "BC Place", "hostCity": "Vancouver"}, {"opponent": "Bosnia & Herzegovina", "stage": "Group stage", "localKickoff": "2026-06-24 22:00:00+03:00", "sleepHours": 1.0, "venue": "Lumen Field", "hostCity": "Seattle"}]}, {"rank": 14, "team": "Egypt", "city": "Cairo", "timezone": "Africa/Cairo", "matches": 4, "affectedMatches": 3, "sleepHours": 4.0, "meanHours": 1.0, "maxHours": 2.0, "affectedShare": 0.75, "yearsPerMillion": 456.62100456621005, "cluster": "moderate impact", "meanRank": 14.444444444444445, "bestRank": 12, "worstRank": 17, "firstPlaceScenarios": 0, "details": [{"opponent": "Belgium", "stage": "Group stage", "localKickoff": "2026-06-15 22:00:00+03:00", "sleepHours": 1.0, "venue": "Lumen Field", "hostCity": "Seattle"}, {"opponent": "New Zealand", "stage": "Group stage", "localKickoff": "2026-06-22 04:00:00+03:00", "sleepHours": 2.0, "venue": "BC Place", "hostCity": "Vancouver"}, {"opponent": "Iran", "stage": "Group stage", "localKickoff": "2026-06-27 06:00:00+03:00", "sleepHours": 1.0, "venue": "Lumen Field", "hostCity": "Seattle"}, {"opponent": "Australia", "stage": "Round of 32", "localKickoff": "2026-07-03 21:00:00+03:00", "sleepHours": 0.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}]}, {"rank": 15, "team": "Czechia", "city": "Prague", "timezone": "Europe/Prague", "matches": 3, "affectedMatches": 2, "sleepHours": 4.0, "meanHours": 1.3333333333333333, "maxHours": 2.0, "affectedShare": 0.6666666666666666, "yearsPerMillion": 456.62100456621005, "cluster": "moderate impact", "meanRank": 16.333333333333332, "bestRank": 9, "worstRank": 27, "firstPlaceScenarios": 0, "details": [{"opponent": "South Korea", "stage": "Group stage", "localKickoff": "2026-06-12 04:00:00+02:00", "sleepHours": 2.0, "venue": "Estadio Akron", "hostCity": "Guadalajara"}, {"opponent": "South Africa", "stage": "Group stage", "localKickoff": "2026-06-18 18:00:00+02:00", "sleepHours": 0.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}, {"opponent": "Mexico", "stage": "Group stage", "localKickoff": "2026-06-25 03:00:00+02:00", "sleepHours": 2.0, "venue": "Estadio Azteca", "hostCity": "Mexico City"}]}, {"rank": 16, "team": "Saudi Arabia", "city": "Riyadh", "timezone": "Asia/Riyadh", "matches": 3, "affectedMatches": 2, "sleepHours": 4.0, "meanHours": 1.3333333333333333, "maxHours": 2.0, "affectedShare": 0.6666666666666666, "yearsPerMillion": 456.62100456621005, "cluster": "moderate impact", "meanRank": 17.0, "bestRank": 11, "worstRank": 24, "firstPlaceScenarios": 0, "details": [{"opponent": "Uruguay", "stage": "Group stage", "localKickoff": "2026-06-16 01:00:00+03:00", "sleepHours": 2.0, "venue": "Hard Rock Stadium", "hostCity": "Miami Gardens"}, {"opponent": "Spain", "stage": "Group stage", "localKickoff": "2026-06-21 19:00:00+03:00", "sleepHours": 0.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}, {"opponent": "Cape Verde", "stage": "Group stage", "localKickoff": "2026-06-27 03:00:00+03:00", "sleepHours": 2.0, "venue": "NRG Stadium", "hostCity": "Houston"}]}, {"rank": 17, "team": "DR Congo", "city": "Kinshasa", "timezone": "Africa/Kinshasa", "matches": 4, "affectedMatches": 2, "sleepHours": 4.0, "meanHours": 1.0, "maxHours": 2.0, "affectedShare": 0.5, "yearsPerMillion": 456.62100456621005, "cluster": "moderate impact", "meanRank": 18.77777777777778, "bestRank": 14, "worstRank": 26, "firstPlaceScenarios": 0, "details": [{"opponent": "Portugal", "stage": "Group stage", "localKickoff": "2026-06-17 18:00:00+01:00", "sleepHours": 0.0, "venue": "NRG Stadium", "hostCity": "Houston"}, {"opponent": "Colombia", "stage": "Group stage", "localKickoff": "2026-06-24 03:00:00+01:00", "sleepHours": 2.0, "venue": "Estadio Akron", "hostCity": "Guadalajara"}, {"opponent": "Uzbekistan", "stage": "Group stage", "localKickoff": "2026-06-28 00:30:00+01:00", "sleepHours": 2.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}, {"opponent": "England", "stage": "Round of 32", "localKickoff": "2026-07-01 17:00:00+01:00", "sleepHours": 0.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}]}, {"rank": 18, "team": "Ghana", "city": "Accra", "timezone": "Africa/Accra", "matches": 4, "affectedMatches": 2, "sleepHours": 4.0, "meanHours": 1.0, "maxHours": 2.0, "affectedShare": 0.5, "yearsPerMillion": 456.62100456621005, "cluster": "moderate impact", "meanRank": 18.22222222222222, "bestRank": 13, "worstRank": 24, "firstPlaceScenarios": 0, "details": [{"opponent": "Panama", "stage": "Group stage", "localKickoff": "2026-06-17 23:00:00+00:00", "sleepHours": 2.0, "venue": "BMO Field", "hostCity": "Toronto"}, {"opponent": "England", "stage": "Group stage", "localKickoff": "2026-06-23 20:00:00+00:00", "sleepHours": 0.0, "venue": "Gillette Stadium", "hostCity": "Foxborough"}, {"opponent": "Croatia", "stage": "Group stage", "localKickoff": "2026-06-27 21:00:00+00:00", "sleepHours": 0.0, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}, {"opponent": "Colombia", "stage": "Round of 32", "localKickoff": "2026-07-04 01:30:00+00:00", "sleepHours": 2.0, "venue": "Arrowhead Stadium", "hostCity": "Kansas City"}]}, {"rank": 19, "team": "Japan", "city": "Tokyo", "timezone": "Asia/Tokyo", "matches": 4, "affectedMatches": 2, "sleepHours": 4.0, "meanHours": 1.0, "maxHours": 2.0, "affectedShare": 0.5, "yearsPerMillion": 456.62100456621005, "cluster": "moderate impact", "meanRank": 22.555555555555557, "bestRank": 16, "worstRank": 34, "firstPlaceScenarios": 0, "details": [{"opponent": "Netherlands", "stage": "Group stage", "localKickoff": "2026-06-15 05:00:00+09:00", "sleepHours": 2.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}, {"opponent": "Tunisia", "stage": "Group stage", "localKickoff": "2026-06-21 13:00:00+09:00", "sleepHours": 0.0, "venue": "Estadio BBVA", "hostCity": "Monterrey"}, {"opponent": "Sweden", "stage": "Group stage", "localKickoff": "2026-06-26 08:00:00+09:00", "sleepHours": 0.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}, {"opponent": "Brazil", "stage": "Round of 32", "localKickoff": "2026-06-30 02:00:00+09:00", "sleepHours": 2.0, "venue": "NRG Stadium", "hostCity": "Houston"}]}, {"rank": 20, "team": "Norway", "city": "Oslo", "timezone": "Europe/Oslo", "matches": 4, "affectedMatches": 2, "sleepHours": 4.0, "meanHours": 1.0, "maxHours": 2.0, "affectedShare": 0.5, "yearsPerMillion": 456.62100456621005, "cluster": "moderate impact", "meanRank": 17.555555555555557, "bestRank": 15, "worstRank": 20, "firstPlaceScenarios": 0, "details": [{"opponent": "Iraq", "stage": "Group stage", "localKickoff": "2026-06-17 00:00:00+02:00", "sleepHours": 2.0, "venue": "Gillette Stadium", "hostCity": "Foxborough"}, {"opponent": "Senegal", "stage": "Group stage", "localKickoff": "2026-06-23 02:00:00+02:00", "sleepHours": 2.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}, {"opponent": "France", "stage": "Group stage", "localKickoff": "2026-06-26 21:00:00+02:00", "sleepHours": 0.0, "venue": "Gillette Stadium", "hostCity": "Foxborough"}, {"opponent": "Ivory Coast", "stage": "Round of 32", "localKickoff": "2026-06-30 19:00:00+02:00", "sleepHours": 0.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}]}, {"rank": 21, "team": "Portugal", "city": "Lisbon", "timezone": "Europe/Lisbon", "matches": 4, "affectedMatches": 2, "sleepHours": 4.0, "meanHours": 1.0, "maxHours": 2.0, "affectedShare": 0.5, "yearsPerMillion": 456.62100456621005, "cluster": "moderate impact", "meanRank": 21.555555555555557, "bestRank": 18, "worstRank": 27, "firstPlaceScenarios": 0, "details": [{"opponent": "DR Congo", "stage": "Group stage", "localKickoff": "2026-06-17 18:00:00+01:00", "sleepHours": 0.0, "venue": "NRG Stadium", "hostCity": "Houston"}, {"opponent": "Uzbekistan", "stage": "Group stage", "localKickoff": "2026-06-23 18:00:00+01:00", "sleepHours": 0.0, "venue": "NRG Stadium", "hostCity": "Houston"}, {"opponent": "Colombia", "stage": "Group stage", "localKickoff": "2026-06-28 00:30:00+01:00", "sleepHours": 2.0, "venue": "Hard Rock Stadium", "hostCity": "Miami Gardens"}, {"opponent": "Croatia", "stage": "Round of 32", "localKickoff": "2026-07-03 00:00:00+01:00", "sleepHours": 2.0, "venue": "BMO Field", "hostCity": "Toronto"}]}, {"rank": 22, "team": "Germany", "city": "Berlin", "timezone": "Europe/Berlin", "matches": 4, "affectedMatches": 3, "sleepHours": 3.5, "meanHours": 0.875, "maxHours": 1.5, "affectedShare": 0.75, "yearsPerMillion": 399.5433789954338, "cluster": "moderate impact", "meanRank": 21.333333333333332, "bestRank": 8, "worstRank": 35, "firstPlaceScenarios": 0, "details": [{"opponent": "Curaçao", "stage": "Group stage", "localKickoff": "2026-06-14 19:00:00+02:00", "sleepHours": 0.0, "venue": "NRG Stadium", "hostCity": "Houston"}, {"opponent": "Ivory Coast", "stage": "Group stage", "localKickoff": "2026-06-20 22:00:00+02:00", "sleepHours": 1.0, "venue": "BMO Field", "hostCity": "Toronto"}, {"opponent": "Ecuador", "stage": "Group stage", "localKickoff": "2026-06-25 22:00:00+02:00", "sleepHours": 1.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}, {"opponent": "Paraguay", "stage": "Round of 32", "localKickoff": "2026-06-29 22:30:00+02:00", "sleepHours": 1.5, "venue": "Gillette Stadium", "hostCity": "Foxborough"}]}, {"rank": 23, "team": "Jordan", "city": "Amman", "timezone": "Asia/Amman", "matches": 3, "affectedMatches": 2, "sleepHours": 3.0, "meanHours": 1.0, "maxHours": 2.0, "affectedShare": 0.6666666666666666, "yearsPerMillion": 342.4657534246575, "cluster": "moderate impact", "meanRank": 23.0, "bestRank": 4, "worstRank": 40, "firstPlaceScenarios": 0, "details": [{"opponent": "Austria", "stage": "Group stage", "localKickoff": "2026-06-17 07:00:00+03:00", "sleepHours": 0.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}, {"opponent": "Algeria", "stage": "Group stage", "localKickoff": "2026-06-23 06:00:00+03:00", "sleepHours": 1.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}, {"opponent": "Argentina", "stage": "Group stage", "localKickoff": "2026-06-28 05:00:00+03:00", "sleepHours": 2.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}]}, {"rank": 24, "team": "Türkiye", "city": "Istanbul", "timezone": "Europe/Istanbul", "matches": 3, "affectedMatches": 2, "sleepHours": 3.0, "meanHours": 1.0, "maxHours": 2.0, "affectedShare": 0.6666666666666666, "yearsPerMillion": 342.4657534246575, "cluster": "moderate impact", "meanRank": 26.88888888888889, "bestRank": 12, "worstRank": 41, "firstPlaceScenarios": 0, "details": [{"opponent": "Australia", "stage": "Group stage", "localKickoff": "2026-06-14 19:00:00+03:00", "sleepHours": 0.0, "venue": "BC Place", "hostCity": "Vancouver"}, {"opponent": "Paraguay", "stage": "Group stage", "localKickoff": "2026-06-20 06:00:00+03:00", "sleepHours": 1.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}, {"opponent": "United States", "stage": "Group stage", "localKickoff": "2026-06-26 05:00:00+03:00", "sleepHours": 2.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}]}, {"rank": 25, "team": "Uzbekistan", "city": "Tashkent", "timezone": "Asia/Tashkent", "matches": 3, "affectedMatches": 2, "sleepHours": 3.0, "meanHours": 1.0, "maxHours": 2.0, "affectedShare": 0.6666666666666666, "yearsPerMillion": 342.4657534246575, "cluster": "moderate impact", "meanRank": 25.444444444444443, "bestRank": 21, "worstRank": 30, "firstPlaceScenarios": 0, "details": [{"opponent": "Colombia", "stage": "Group stage", "localKickoff": "2026-06-18 07:00:00+05:00", "sleepHours": 0.0, "venue": "Estadio Azteca", "hostCity": "Mexico City"}, {"opponent": "Portugal", "stage": "Group stage", "localKickoff": "2026-06-23 22:00:00+05:00", "sleepHours": 1.0, "venue": "NRG Stadium", "hostCity": "Houston"}, {"opponent": "DR Congo", "stage": "Group stage", "localKickoff": "2026-06-28 04:30:00+05:00", "sleepHours": 2.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}]}, {"rank": 26, "team": "Argentina", "city": "Buenos Aires", "timezone": "America/Argentina/Buenos_Aires", "matches": 4, "affectedMatches": 2, "sleepHours": 3.0, "meanHours": 0.75, "maxHours": 2.0, "affectedShare": 0.5, "yearsPerMillion": 342.4657534246575, "cluster": "moderate impact", "meanRank": 27.22222222222222, "bestRank": 21, "worstRank": 32, "firstPlaceScenarios": 0, "details": [{"opponent": "Algeria", "stage": "Group stage", "localKickoff": "2026-06-16 22:00:00-03:00", "sleepHours": 1.0, "venue": "Arrowhead Stadium", "hostCity": "Kansas City"}, {"opponent": "Austria", "stage": "Group stage", "localKickoff": "2026-06-22 14:00:00-03:00", "sleepHours": 0.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}, {"opponent": "Jordan", "stage": "Group stage", "localKickoff": "2026-06-27 23:00:00-03:00", "sleepHours": 2.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}, {"opponent": "Cape Verde", "stage": "Round of 32", "localKickoff": "2026-07-03 19:00:00-03:00", "sleepHours": 0.0, "venue": "Hard Rock Stadium", "hostCity": "Miami Gardens"}]}, {"rank": 27, "team": "Austria", "city": "Vienna", "timezone": "Europe/Vienna", "matches": 4, "affectedMatches": 2, "sleepHours": 3.0, "meanHours": 0.75, "maxHours": 2.0, "affectedShare": 0.5, "yearsPerMillion": 342.4657534246575, "cluster": "moderate impact", "meanRank": 24.11111111111111, "bestRank": 13, "worstRank": 33, "firstPlaceScenarios": 0, "details": [{"opponent": "Jordan", "stage": "Group stage", "localKickoff": "2026-06-17 06:00:00+02:00", "sleepHours": 1.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}, {"opponent": "Argentina", "stage": "Group stage", "localKickoff": "2026-06-22 19:00:00+02:00", "sleepHours": 0.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}, {"opponent": "Algeria", "stage": "Group stage", "localKickoff": "2026-06-28 04:00:00+02:00", "sleepHours": 2.0, "venue": "Arrowhead Stadium", "hostCity": "Kansas City"}, {"opponent": "Spain", "stage": "Round of 32", "localKickoff": "2026-07-02 21:00:00+02:00", "sleepHours": 0.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}]}, {"rank": 28, "team": "Belgium", "city": "Brussels", "timezone": "Europe/Brussels", "matches": 4, "affectedMatches": 2, "sleepHours": 3.0, "meanHours": 0.75, "maxHours": 2.0, "affectedShare": 0.5, "yearsPerMillion": 342.4657534246575, "cluster": "moderate impact", "meanRank": 21.88888888888889, "bestRank": 12, "worstRank": 28, "firstPlaceScenarios": 0, "details": [{"opponent": "Egypt", "stage": "Group stage", "localKickoff": "2026-06-15 21:00:00+02:00", "sleepHours": 0.0, "venue": "Lumen Field", "hostCity": "Seattle"}, {"opponent": "Iran", "stage": "Group stage", "localKickoff": "2026-06-21 21:00:00+02:00", "sleepHours": 0.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}, {"opponent": "New Zealand", "stage": "Group stage", "localKickoff": "2026-06-27 05:00:00+02:00", "sleepHours": 2.0, "venue": "BC Place", "hostCity": "Vancouver"}, {"opponent": "Senegal", "stage": "Round of 32", "localKickoff": "2026-07-01 22:00:00+02:00", "sleepHours": 1.0, "venue": "Lumen Field", "hostCity": "Seattle"}]}, {"rank": 29, "team": "Bosnia & Herzegovina", "city": "Sarajevo", "timezone": "Europe/Sarajevo", "matches": 4, "affectedMatches": 1, "sleepHours": 2.0, "meanHours": 0.5, "maxHours": 2.0, "affectedShare": 0.25, "yearsPerMillion": 228.31050228310502, "cluster": "moderate impact", "meanRank": 23.22222222222222, "bestRank": 12, "worstRank": 29, "firstPlaceScenarios": 0, "details": [{"opponent": "Canada", "stage": "Group stage", "localKickoff": "2026-06-12 21:00:00+02:00", "sleepHours": 0.0, "venue": "BMO Field", "hostCity": "Toronto"}, {"opponent": "Switzerland", "stage": "Group stage", "localKickoff": "2026-06-18 21:00:00+02:00", "sleepHours": 0.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}, {"opponent": "Qatar", "stage": "Group stage", "localKickoff": "2026-06-24 21:00:00+02:00", "sleepHours": 0.0, "venue": "Lumen Field", "hostCity": "Seattle"}, {"opponent": "United States", "stage": "Round of 32", "localKickoff": "2026-07-02 02:00:00+02:00", "sleepHours": 2.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}]}, {"rank": 30, "team": "Cape Verde", "city": "Praia", "timezone": "Atlantic/Cape_Verde", "matches": 4, "affectedMatches": 1, "sleepHours": 2.0, "meanHours": 0.5, "maxHours": 2.0, "affectedShare": 0.25, "yearsPerMillion": 228.31050228310502, "cluster": "moderate impact", "meanRank": 28.444444444444443, "bestRank": 20, "worstRank": 34, "firstPlaceScenarios": 0, "details": [{"opponent": "Spain", "stage": "Group stage", "localKickoff": "2026-06-15 15:00:00-01:00", "sleepHours": 0.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}, {"opponent": "Uruguay", "stage": "Group stage", "localKickoff": "2026-06-21 21:00:00-01:00", "sleepHours": 0.0, "venue": "Hard Rock Stadium", "hostCity": "Miami Gardens"}, {"opponent": "Saudi Arabia", "stage": "Group stage", "localKickoff": "2026-06-26 23:00:00-01:00", "sleepHours": 2.0, "venue": "NRG Stadium", "hostCity": "Houston"}, {"opponent": "Argentina", "stage": "Round of 32", "localKickoff": "2026-07-03 21:00:00-01:00", "sleepHours": 0.0, "venue": "Hard Rock Stadium", "hostCity": "Miami Gardens"}]}, {"rank": 31, "team": "Ivory Coast", "city": "Abidjan", "timezone": "Africa/Abidjan", "matches": 4, "affectedMatches": 1, "sleepHours": 2.0, "meanHours": 0.5, "maxHours": 2.0, "affectedShare": 0.25, "yearsPerMillion": 228.31050228310502, "cluster": "moderate impact", "meanRank": 33.77777777777778, "bestRank": 31, "worstRank": 35, "firstPlaceScenarios": 0, "details": [{"opponent": "Ecuador", "stage": "Group stage", "localKickoff": "2026-06-14 23:00:00+00:00", "sleepHours": 2.0, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}, {"opponent": "Germany", "stage": "Group stage", "localKickoff": "2026-06-20 20:00:00+00:00", "sleepHours": 0.0, "venue": "BMO Field", "hostCity": "Toronto"}, {"opponent": "Curaçao", "stage": "Group stage", "localKickoff": "2026-06-25 20:00:00+00:00", "sleepHours": 0.0, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}, {"opponent": "Norway", "stage": "Round of 32", "localKickoff": "2026-06-30 17:00:00+00:00", "sleepHours": 0.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}]}, {"rank": 32, "team": "Senegal", "city": "Dakar", "timezone": "Africa/Dakar", "matches": 4, "affectedMatches": 1, "sleepHours": 2.0, "meanHours": 0.5, "maxHours": 2.0, "affectedShare": 0.25, "yearsPerMillion": 228.31050228310502, "cluster": "moderate impact", "meanRank": 32.333333333333336, "bestRank": 28, "worstRank": 36, "firstPlaceScenarios": 0, "details": [{"opponent": "France", "stage": "Group stage", "localKickoff": "2026-06-16 19:00:00+00:00", "sleepHours": 0.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}, {"opponent": "Norway", "stage": "Group stage", "localKickoff": "2026-06-23 00:00:00+00:00", "sleepHours": 2.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}, {"opponent": "Iraq", "stage": "Group stage", "localKickoff": "2026-06-26 19:00:00+00:00", "sleepHours": 0.0, "venue": "BMO Field", "hostCity": "Toronto"}, {"opponent": "Belgium", "stage": "Round of 32", "localKickoff": "2026-07-01 20:00:00+00:00", "sleepHours": 0.0, "venue": "Lumen Field", "hostCity": "Seattle"}]}, {"rank": 33, "team": "South Africa", "city": "Johannesburg", "timezone": "Africa/Johannesburg", "matches": 4, "affectedMatches": 1, "sleepHours": 2.0, "meanHours": 0.5, "maxHours": 2.0, "affectedShare": 0.25, "yearsPerMillion": 228.31050228310502, "cluster": "moderate impact", "meanRank": 28.444444444444443, "bestRank": 22, "worstRank": 33, "firstPlaceScenarios": 0, "details": [{"opponent": "Mexico", "stage": "Group stage", "localKickoff": "2026-06-11 21:00:00+02:00", "sleepHours": 0.0, "venue": "Estadio Azteca", "hostCity": "Mexico City"}, {"opponent": "Czechia", "stage": "Group stage", "localKickoff": "2026-06-18 18:00:00+02:00", "sleepHours": 0.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}, {"opponent": "South Korea", "stage": "Group stage", "localKickoff": "2026-06-25 03:00:00+02:00", "sleepHours": 2.0, "venue": "Estadio BBVA", "hostCity": "Monterrey"}, {"opponent": "Canada", "stage": "Round of 32", "localKickoff": "2026-06-28 21:00:00+02:00", "sleepHours": 0.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}]}, {"rank": 34, "team": "Spain", "city": "Madrid", "timezone": "Europe/Madrid", "matches": 4, "affectedMatches": 1, "sleepHours": 2.0, "meanHours": 0.5, "maxHours": 2.0, "affectedShare": 0.25, "yearsPerMillion": 228.31050228310502, "cluster": "moderate impact", "meanRank": 31.77777777777778, "bestRank": 30, "worstRank": 34, "firstPlaceScenarios": 0, "details": [{"opponent": "Cape Verde", "stage": "Group stage", "localKickoff": "2026-06-15 18:00:00+02:00", "sleepHours": 0.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}, {"opponent": "Saudi Arabia", "stage": "Group stage", "localKickoff": "2026-06-21 18:00:00+02:00", "sleepHours": 0.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}, {"opponent": "Uruguay", "stage": "Group stage", "localKickoff": "2026-06-27 02:00:00+02:00", "sleepHours": 2.0, "venue": "Estadio Akron", "hostCity": "Guadalajara"}, {"opponent": "Austria", "stage": "Round of 32", "localKickoff": "2026-07-02 21:00:00+02:00", "sleepHours": 0.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}]}, {"rank": 35, "team": "Switzerland", "city": "Zurich", "timezone": "Europe/Zurich", "matches": 4, "affectedMatches": 1, "sleepHours": 2.0, "meanHours": 0.5, "maxHours": 2.0, "affectedShare": 0.25, "yearsPerMillion": 228.31050228310502, "cluster": "moderate impact", "meanRank": 28.333333333333332, "bestRank": 19, "worstRank": 35, "firstPlaceScenarios": 0, "details": [{"opponent": "Qatar", "stage": "Group stage", "localKickoff": "2026-06-13 21:00:00+02:00", "sleepHours": 0.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}, {"opponent": "Bosnia & Herzegovina", "stage": "Group stage", "localKickoff": "2026-06-18 21:00:00+02:00", "sleepHours": 0.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}, {"opponent": "Canada", "stage": "Group stage", "localKickoff": "2026-06-24 21:00:00+02:00", "sleepHours": 0.0, "venue": "BC Place", "hostCity": "Vancouver"}, {"opponent": "Algeria", "stage": "Round of 32", "localKickoff": "2026-07-03 05:00:00+02:00", "sleepHours": 2.0, "venue": "BC Place", "hostCity": "Vancouver"}]}, {"rank": 36, "team": "England", "city": "London", "timezone": "Europe/London", "matches": 4, "affectedMatches": 1, "sleepHours": 1.0, "meanHours": 0.25, "maxHours": 1.0, "affectedShare": 0.25, "yearsPerMillion": 114.15525114155251, "cluster": "low impact", "meanRank": 32.666666666666664, "bestRank": 21, "worstRank": 41, "firstPlaceScenarios": 0, "details": [{"opponent": "Croatia", "stage": "Group stage", "localKickoff": "2026-06-17 21:00:00+01:00", "sleepHours": 0.0, "venue": "AT&T Stadium", "hostCity": "Arlington"}, {"opponent": "Ghana", "stage": "Group stage", "localKickoff": "2026-06-23 21:00:00+01:00", "sleepHours": 0.0, "venue": "Gillette Stadium", "hostCity": "Foxborough"}, {"opponent": "Panama", "stage": "Group stage", "localKickoff": "2026-06-27 22:00:00+01:00", "sleepHours": 1.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}, {"opponent": "DR Congo", "stage": "Round of 32", "localKickoff": "2026-07-01 17:00:00+01:00", "sleepHours": 0.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}]}, {"rank": 37, "team": "United States", "city": "New York / Eastern Time", "timezone": "America/New_York", "matches": 4, "affectedMatches": 1, "sleepHours": 1.0, "meanHours": 0.25, "maxHours": 1.0, "affectedShare": 0.25, "yearsPerMillion": 114.15525114155251, "cluster": "low impact", "meanRank": 37.333333333333336, "bestRank": 28, "worstRank": 47, "firstPlaceScenarios": 0, "details": [{"opponent": "Paraguay", "stage": "Group stage", "localKickoff": "2026-06-12 21:00:00-04:00", "sleepHours": 0.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}, {"opponent": "Australia", "stage": "Group stage", "localKickoff": "2026-06-19 15:00:00-04:00", "sleepHours": 0.0, "venue": "Lumen Field", "hostCity": "Seattle"}, {"opponent": "Türkiye", "stage": "Group stage", "localKickoff": "2026-06-25 22:00:00-04:00", "sleepHours": 1.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}, {"opponent": "Bosnia & Herzegovina", "stage": "Round of 32", "localKickoff": "2026-07-01 20:00:00-04:00", "sleepHours": 0.0, "venue": "Levi's Stadium", "hostCity": "Santa Clara"}]}, {"rank": 38, "team": "Brazil", "city": "São Paulo", "timezone": "America/Sao_Paulo", "matches": 4, "affectedMatches": 1, "sleepHours": 0.5, "meanHours": 0.125, "maxHours": 0.5, "affectedShare": 0.25, "yearsPerMillion": 57.077625570776256, "cluster": "low impact", "meanRank": 37.44444444444444, "bestRank": 36, "worstRank": 38, "firstPlaceScenarios": 0, "details": [{"opponent": "Morocco", "stage": "Group stage", "localKickoff": "2026-06-13 19:00:00-03:00", "sleepHours": 0.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}, {"opponent": "Haiti", "stage": "Group stage", "localKickoff": "2026-06-19 21:30:00-03:00", "sleepHours": 0.5, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}, {"opponent": "Scotland", "stage": "Group stage", "localKickoff": "2026-06-24 19:00:00-03:00", "sleepHours": 0.0, "venue": "Hard Rock Stadium", "hostCity": "Miami Gardens"}, {"opponent": "Japan", "stage": "Round of 32", "localKickoff": "2026-06-29 14:00:00-03:00", "sleepHours": 0.0, "venue": "NRG Stadium", "hostCity": "Houston"}]}, {"rank": 39, "team": "Canada", "city": "Toronto", "timezone": "America/Toronto", "matches": 5, "affectedMatches": 0, "sleepHours": 0.0, "meanHours": 0.0, "maxHours": 0.0, "affectedShare": 0.0, "yearsPerMillion": 0.0, "cluster": "low impact", "meanRank": 40.111111111111114, "bestRank": 37, "worstRank": 44, "firstPlaceScenarios": 0, "details": [{"opponent": "Bosnia & Herzegovina", "stage": "Group stage", "localKickoff": "2026-06-12 15:00:00-04:00", "sleepHours": 0.0, "venue": "BMO Field", "hostCity": "Toronto"}, {"opponent": "Qatar", "stage": "Group stage", "localKickoff": "2026-06-18 18:00:00-04:00", "sleepHours": 0.0, "venue": "BC Place", "hostCity": "Vancouver"}, {"opponent": "Switzerland", "stage": "Group stage", "localKickoff": "2026-06-24 15:00:00-04:00", "sleepHours": 0.0, "venue": "BC Place", "hostCity": "Vancouver"}, {"opponent": "South Africa", "stage": "Round of 32", "localKickoff": "2026-06-28 15:00:00-04:00", "sleepHours": 0.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}, {"opponent": "Morocco", "stage": "Round of 16", "localKickoff": "2026-07-04 13:00:00-04:00", "sleepHours": 0.0, "venue": "NRG Stadium", "hostCity": "Houston"}]}, {"rank": 40, "team": "Colombia", "city": "Bogotá", "timezone": "America/Bogota", "matches": 4, "affectedMatches": 0, "sleepHours": 0.0, "meanHours": 0.0, "maxHours": 0.0, "affectedShare": 0.0, "yearsPerMillion": 0.0, "cluster": "low impact", "meanRank": 37.22222222222222, "bestRank": 32, "worstRank": 40, "firstPlaceScenarios": 0, "details": [{"opponent": "Uzbekistan", "stage": "Group stage", "localKickoff": "2026-06-17 21:00:00-05:00", "sleepHours": 0.0, "venue": "Estadio Azteca", "hostCity": "Mexico City"}, {"opponent": "DR Congo", "stage": "Group stage", "localKickoff": "2026-06-23 21:00:00-05:00", "sleepHours": 0.0, "venue": "Estadio Akron", "hostCity": "Guadalajara"}, {"opponent": "Portugal", "stage": "Group stage", "localKickoff": "2026-06-27 18:30:00-05:00", "sleepHours": 0.0, "venue": "Hard Rock Stadium", "hostCity": "Miami Gardens"}, {"opponent": "Ghana", "stage": "Round of 32", "localKickoff": "2026-07-03 20:30:00-05:00", "sleepHours": 0.0, "venue": "Arrowhead Stadium", "hostCity": "Kansas City"}]}, {"rank": 41, "team": "Curaçao", "city": "Willemstad", "timezone": "America/Curacao", "matches": 3, "affectedMatches": 0, "sleepHours": 0.0, "meanHours": 0.0, "maxHours": 0.0, "affectedShare": 0.0, "yearsPerMillion": 0.0, "cluster": "low impact", "meanRank": 41.333333333333336, "bestRank": 39, "worstRank": 43, "firstPlaceScenarios": 0, "details": [{"opponent": "Germany", "stage": "Group stage", "localKickoff": "2026-06-14 13:00:00-04:00", "sleepHours": 0.0, "venue": "NRG Stadium", "hostCity": "Houston"}, {"opponent": "Ecuador", "stage": "Group stage", "localKickoff": "2026-06-20 20:00:00-04:00", "sleepHours": 0.0, "venue": "Arrowhead Stadium", "hostCity": "Kansas City"}, {"opponent": "Ivory Coast", "stage": "Group stage", "localKickoff": "2026-06-25 16:00:00-04:00", "sleepHours": 0.0, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}]}, {"rank": 42, "team": "Ecuador", "city": "Guayaquil", "timezone": "America/Guayaquil", "matches": 4, "affectedMatches": 0, "sleepHours": 0.0, "meanHours": 0.0, "maxHours": 0.0, "affectedShare": 0.0, "yearsPerMillion": 0.0, "cluster": "low impact", "meanRank": 42.333333333333336, "bestRank": 40, "worstRank": 44, "firstPlaceScenarios": 0, "details": [{"opponent": "Ivory Coast", "stage": "Group stage", "localKickoff": "2026-06-14 18:00:00-05:00", "sleepHours": 0.0, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}, {"opponent": "Curaçao", "stage": "Group stage", "localKickoff": "2026-06-20 19:00:00-05:00", "sleepHours": 0.0, "venue": "Arrowhead Stadium", "hostCity": "Kansas City"}, {"opponent": "Germany", "stage": "Group stage", "localKickoff": "2026-06-25 15:00:00-05:00", "sleepHours": 0.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}, {"opponent": "Mexico", "stage": "Round of 32", "localKickoff": "2026-06-30 20:00:00-05:00", "sleepHours": 0.0, "venue": "Estadio Azteca", "hostCity": "Mexico City"}]}, {"rank": 43, "team": "Haiti", "city": "Port-au-Prince", "timezone": "America/Port-au-Prince", "matches": 3, "affectedMatches": 0, "sleepHours": 0.0, "meanHours": 0.0, "maxHours": 0.0, "affectedShare": 0.0, "yearsPerMillion": 0.0, "cluster": "low impact", "meanRank": 40.55555555555556, "bestRank": 37, "worstRank": 43, "firstPlaceScenarios": 0, "details": [{"opponent": "Scotland", "stage": "Group stage", "localKickoff": "2026-06-13 21:00:00-04:00", "sleepHours": 0.0, "venue": "Gillette Stadium", "hostCity": "Foxborough"}, {"opponent": "Brazil", "stage": "Group stage", "localKickoff": "2026-06-19 20:30:00-04:00", "sleepHours": 0.0, "venue": "Lincoln Financial Field", "hostCity": "Philadelphia"}, {"opponent": "Morocco", "stage": "Group stage", "localKickoff": "2026-06-24 18:00:00-04:00", "sleepHours": 0.0, "venue": "Mercedes-Benz Stadium", "hostCity": "Atlanta"}]}, {"rank": 44, "team": "Mexico", "city": "Mexico City", "timezone": "America/Mexico_City", "matches": 4, "affectedMatches": 0, "sleepHours": 0.0, "meanHours": 0.0, "maxHours": 0.0, "affectedShare": 0.0, "yearsPerMillion": 0.0, "cluster": "low impact", "meanRank": 44.22222222222222, "bestRank": 43, "worstRank": 45, "firstPlaceScenarios": 0, "details": [{"opponent": "South Africa", "stage": "Group stage", "localKickoff": "2026-06-11 13:00:00-06:00", "sleepHours": 0.0, "venue": "Estadio Azteca", "hostCity": "Mexico City"}, {"opponent": "South Korea", "stage": "Group stage", "localKickoff": "2026-06-18 19:00:00-06:00", "sleepHours": 0.0, "venue": "Estadio Akron", "hostCity": "Guadalajara"}, {"opponent": "Czechia", "stage": "Group stage", "localKickoff": "2026-06-24 19:00:00-06:00", "sleepHours": 0.0, "venue": "Estadio Azteca", "hostCity": "Mexico City"}, {"opponent": "Ecuador", "stage": "Round of 32", "localKickoff": "2026-06-30 19:00:00-06:00", "sleepHours": 0.0, "venue": "Estadio Azteca", "hostCity": "Mexico City"}]}, {"rank": 45, "team": "New Zealand", "city": "Auckland", "timezone": "Pacific/Auckland", "matches": 3, "affectedMatches": 0, "sleepHours": 0.0, "meanHours": 0.0, "maxHours": 0.0, "affectedShare": 0.0, "yearsPerMillion": 0.0, "cluster": "low impact", "meanRank": 45.22222222222222, "bestRank": 44, "worstRank": 46, "firstPlaceScenarios": 0, "details": [{"opponent": "Iran", "stage": "Group stage", "localKickoff": "2026-06-16 13:00:00+12:00", "sleepHours": 0.0, "venue": "SoFi Stadium", "hostCity": "Inglewood"}, {"opponent": "Egypt", "stage": "Group stage", "localKickoff": "2026-06-22 13:00:00+12:00", "sleepHours": 0.0, "venue": "BC Place", "hostCity": "Vancouver"}, {"opponent": "Belgium", "stage": "Group stage", "localKickoff": "2026-06-27 15:00:00+12:00", "sleepHours": 0.0, "venue": "BC Place", "hostCity": "Vancouver"}]}, {"rank": 46, "team": "Panama", "city": "Panama City", "timezone": "America/Panama", "matches": 3, "affectedMatches": 0, "sleepHours": 0.0, "meanHours": 0.0, "maxHours": 0.0, "affectedShare": 0.0, "yearsPerMillion": 0.0, "cluster": "low impact", "meanRank": 46.22222222222222, "bestRank": 45, "worstRank": 47, "firstPlaceScenarios": 0, "details": [{"opponent": "Ghana", "stage": "Group stage", "localKickoff": "2026-06-17 18:00:00-05:00", "sleepHours": 0.0, "venue": "BMO Field", "hostCity": "Toronto"}, {"opponent": "Croatia", "stage": "Group stage", "localKickoff": "2026-06-23 18:00:00-05:00", "sleepHours": 0.0, "venue": "BMO Field", "hostCity": "Toronto"}, {"opponent": "England", "stage": "Group stage", "localKickoff": "2026-06-27 16:00:00-05:00", "sleepHours": 0.0, "venue": "MetLife Stadium", "hostCity": "East Rutherford"}]}, {"rank": 47, "team": "South Korea", "city": "Seoul", "timezone": "Asia/Seoul", "matches": 3, "affectedMatches": 0, "sleepHours": 0.0, "meanHours": 0.0, "maxHours": 0.0, "affectedShare": 0.0, "yearsPerMillion": 0.0, "cluster": "low impact", "meanRank": 47.22222222222222, "bestRank": 46, "worstRank": 48, "firstPlaceScenarios": 0, "details": [{"opponent": "Czechia", "stage": "Group stage", "localKickoff": "2026-06-12 11:00:00+09:00", "sleepHours": 0.0, "venue": "Estadio Akron", "hostCity": "Guadalajara"}, {"opponent": "Mexico", "stage": "Group stage", "localKickoff": "2026-06-19 10:00:00+09:00", "sleepHours": 0.0, "venue": "Estadio Akron", "hostCity": "Guadalajara"}, {"opponent": "South Africa", "stage": "Group stage", "localKickoff": "2026-06-25 10:00:00+09:00", "sleepHours": 0.0, "venue": "Estadio BBVA", "hostCity": "Monterrey"}]}, {"rank": 48, "team": "Uruguay", "city": "Montevideo", "timezone": "America/Montevideo", "matches": 3, "affectedMatches": 0, "sleepHours": 0.0, "meanHours": 0.0, "maxHours": 0.0, "affectedShare": 0.0, "yearsPerMillion": 0.0, "cluster": "low impact", "meanRank": 44.666666666666664, "bestRank": 39, "worstRank": 48, "firstPlaceScenarios": 0, "details": [{"opponent": "Saudi Arabia", "stage": "Group stage", "localKickoff": "2026-06-15 19:00:00-03:00", "sleepHours": 0.0, "venue": "Hard Rock Stadium", "hostCity": "Miami Gardens"}, {"opponent": "Cape Verde", "stage": "Group stage", "localKickoff": "2026-06-21 19:00:00-03:00", "sleepHours": 0.0, "venue": "Hard Rock Stadium", "hostCity": "Miami Gardens"}, {"opponent": "Spain", "stage": "Group stage", "localKickoff": "2026-06-26 21:00:00-03:00", "sleepHours": 0.0, "venue": "Estadio Akron", "hostCity": "Guadalajara"}]}];
+    const snapshotUtc = "2026-07-11T00:00:00Z";
+    const rankings = [{"team":"Algeria","city":"Algiers","timezone":"","matches":4,"affectedMatches":4,"sleepHours":8,"meanHours":2.0,"maxHours":2,"affectedShare":1.0,"yearsPerMillion":913.2420091324201,"cluster":"moderate impact","details":[],"rank":1},{"team":"France","city":"Paris","timezone":"","matches":6,"affectedMatches":4,"sleepHours":7,"meanHours":1.17,"maxHours":2,"affectedShare":0.6666666666666666,"yearsPerMillion":799.0867579908676,"cluster":"moderate impact","details":[],"rank":2},{"team":"DR Congo","city":"Kinshasa","timezone":"","matches":4,"affectedMatches":2,"sleepHours":4,"meanHours":1.0,"maxHours":2,"affectedShare":0.5,"yearsPerMillion":456.62100456621005,"cluster":"moderate impact","details":[],"rank":3},{"team":"Egypt","city":"Cairo","timezone":"","matches":5,"affectedMatches":3,"sleepHours":4,"meanHours":0.8,"maxHours":2,"affectedShare":0.6,"yearsPerMillion":456.62100456621005,"cluster":"moderate impact","details":[],"rank":4},{"team":"Iran","city":"Tehran","timezone":"","matches":3,"affectedMatches":3,"sleepHours":4,"meanHours":1.33,"maxHours":2,"affectedShare":1.0,"yearsPerMillion":456.62100456621005,"cluster":"moderate impact","details":[],"rank":5},{"team":"Japan","city":"Tokyo","timezone":"","matches":4,"affectedMatches":2,"sleepHours":4,"meanHours":2.0,"maxHours":2,"affectedShare":0.5,"yearsPerMillion":456.62100456621005,"cluster":"moderate impact","details":[],"rank":6},{"team":"Belgium","city":"Brussels","timezone":"","matches":5,"affectedMatches":2,"sleepHours":3,"meanHours":0.6,"maxHours":2,"affectedShare":0.4,"yearsPerMillion":342.4657534246575,"cluster":"moderate impact","details":[],"rank":7},{"team":"Spain","city":"Madrid","timezone":"","matches":5,"affectedMatches":1,"sleepHours":2,"meanHours":0.4,"maxHours":2,"affectedShare":0.2,"yearsPerMillion":228.31050228310502,"cluster":"moderate impact","details":[],"rank":8},{"team":"England","city":"London","timezone":"","matches":5,"affectedMatches":1,"sleepHours":1,"meanHours":0.2,"maxHours":1,"affectedShare":0.2,"yearsPerMillion":114.15525114155251,"cluster":"low impact","details":[],"rank":9},{"team":"United States","city":"New York / Eastern Time","timezone":"","matches":5,"affectedMatches":1,"sleepHours":1,"meanHours":0.2,"maxHours":1,"affectedShare":0.2,"yearsPerMillion":114.15525114155251,"cluster":"low impact","details":[],"rank":10},{"team":"Brazil","city":"São Paulo","timezone":"","matches":5,"affectedMatches":1,"sleepHours":0.5,"meanHours":0.1,"maxHours":0.5,"affectedShare":0.2,"yearsPerMillion":57.077625570776256,"cluster":"low impact","details":[],"rank":11},{"team":"Argentina","city":"Buenos Aires","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":12},{"team":"Australia","city":"Sydney","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":13},{"team":"Austria","city":"Vienna","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":14},{"team":"Bosnia & Herzegovina","city":"Sarajevo","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":15},{"team":"Canada","city":"Toronto","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":16},{"team":"Cape Verde","city":"Praia","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":17},{"team":"Colombia","city":"Bogotá","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":18},{"team":"Croatia","city":"Zagreb","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":19},{"team":"Curaçao","city":"Willemstad","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":20},{"team":"Czechia","city":"Prague","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":21},{"team":"Ecuador","city":"Guayaquil","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":22},{"team":"Germany","city":"Berlin","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":23},{"team":"Ghana","city":"Accra","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":24},{"team":"Haiti","city":"Port-au-Prince","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":25},{"team":"Iraq","city":"Baghdad","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":26},{"team":"Ivory Coast","city":"Abidjan","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":27},{"team":"Jordan","city":"Amman","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":28},{"team":"Mexico","city":"Mexico City","timezone":"","matches":5,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":29},{"team":"Morocco","city":"Casablanca","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":30},{"team":"Netherlands","city":"Amsterdam","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":31},{"team":"New Zealand","city":"Auckland","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":32},{"team":"Norway","city":"Oslo","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":33},{"team":"Panama","city":"Panama City","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":34},{"team":"Paraguay","city":"Asunción","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":35},{"team":"Portugal","city":"Lisbon","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":36},{"team":"Qatar","city":"Doha","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":37},{"team":"Saudi Arabia","city":"Riyadh","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":38},{"team":"Scotland","city":"Edinburgh","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":39},{"team":"Senegal","city":"Dakar","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":40},{"team":"South Africa","city":"Johannesburg","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":41},{"team":"South Korea","city":"Seoul","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":42},{"team":"Sweden","city":"Stockholm","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":43},{"team":"Switzerland","city":"Zurich","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":44},{"team":"Tunisia","city":"Tunis","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":45},{"team":"Türkiye","city":"Istanbul","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":46},{"team":"Uruguay","city":"Montevideo","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":47},{"team":"Uzbekistan","city":"Tashkent","timezone":"","matches":3,"affectedMatches":0,"sleepHours":0,"meanHours":0,"maxHours":0,"affectedShare":0.0,"yearsPerMillion":0.0,"cluster":"low impact","details":[],"rank":48}];
     /* HERMAI_DATA_END */
 
-    // National population in millions (mid-2024 estimates), used as a fanbase size.
     const POPULATIONS = {
-      "Algeria": 46.8, "Argentina": 46.2, "Australia": 26.8, "Austria": 9.1,
-      "Belgium": 11.8, "Bosnia & Herzegovina": 3.2, "Brazil": 212.6, "Canada": 40.1,
-      "Cape Verde": 0.6, "Colombia": 52.9, "Croatia": 3.8, "Curaçao": 0.2,
-      "Czechia": 10.9, "DR Congo": 109.3, "Ecuador": 18.1, "Egypt": 114.5,
-      "England": 57.7, "France": 68.4, "Germany": 84.5, "Ghana": 34.4,
-      "Haiti": 11.7, "Iran": 90.6, "Iraq": 45.5, "Ivory Coast": 31.9,
-      "Japan": 123.8, "Jordan": 11.5, "Mexico": 129.7, "Morocco": 37.8,
-      "Netherlands": 17.9, "New Zealand": 5.3, "Norway": 5.5, "Panama": 4.5,
-      "Paraguay": 6.9, "Portugal": 10.6, "Qatar": 2.7, "Saudi Arabia": 33.9,
-      "Scotland": 5.5, "Senegal": 18.1, "South Africa": 63.2, "South Korea": 51.7,
-      "Spain": 48.6, "Sweden": 10.6, "Switzerland": 8.9, "Tunisia": 12.4,
-      "Türkiye": 85.3, "United States": 335.0, "Uruguay": 3.4, "Uzbekistan": 37.1
+      "Algeria":46.8,"Argentina":46.2,"Australia":26.8,"Austria":9.1,
+      "Belgium":11.8,"Bosnia & Herzegovina":3.2,"Brazil":212.6,"Canada":40.1,
+      "Cape Verde":0.6,"Colombia":52.9,"Croatia":3.8,"Curaçao":0.2,
+      "Czechia":10.9,"DR Congo":109.3,"Ecuador":18.1,"Egypt":114.5,
+      "England":57.7,"France":68.4,"Germany":84.5,"Ghana":34.4,
+      "Haiti":11.7,"Iran":90.6,"Iraq":45.5,"Ivory Coast":31.9,
+      "Japan":123.8,"Jordan":11.5,"Mexico":129.7,"Morocco":37.8,
+      "Netherlands":17.9,"New Zealand":5.3,"Norway":5.5,"Panama":4.5,
+      "Paraguay":6.9,"Portugal":10.6,"Qatar":2.7,"Saudi Arabia":33.9,
+      "Scotland":5.5,"Senegal":18.1,"South Africa":63.2,"South Korea":51.7,
+      "Spain":48.6,"Sweden":10.6,"Switzerland":8.9,"Tunisia":12.4,
+      "Türkiye":85.3,"United States":335.0,"Uruguay":3.4,"Uzbekistan":37.1
     };
+
+    const COLLAPSED_COUNT = 10;
     const teamSelect = document.getElementById("teamSelect");
     const rankingBody = document.getElementById("rankingBody");
+    const rankingViewport = document.getElementById("rankingViewport");
+    const rankingFade = document.getElementById("rankingFade");
+    const rankingExpandWrap = document.getElementById("rankingExpandWrap");
+    const rankingExpand = document.getElementById("rankingExpand");
+    const rankingExpandLabel = document.getElementById("rankingExpandLabel");
     const search = document.getElementById("search");
+    const sortCollective = document.getElementById("sortCollective");
+    const sortPerFan = document.getElementById("sortPerFan");
 
-    const hoursText = value => Number.isInteger(value) ? String(value) : value.toFixed(1);
+    const hoursText = value => Number.isInteger(value) ? String(value) : Number(value).toFixed(1);
     const yearsText = value => Math.round(value).toLocaleString("en-GB");
-
-    // Collective frame: per-fan hours × national population (proxy for fanbase size).
-    const collHoursOf = row => row.sleepHours * (POPULATIONS[row.team] || 0) * 1e6;
+    const collHoursOf = row => Number(row.sleepHours || 0) * (POPULATIONS[row.team] || 0) * 1e6;
     const collYearsOf = row => collHoursOf(row) / 8760;
+
     function shortHours(hours) {
-      if (hours >= 1e9) return (hours / 1e9).toFixed(1).replace(/\.0$/, "") + "bn";
+      if (hours >= 1e9) return (hours / 1e9).toFixed(1).replace(/\.0$/,"") + "bn";
       if (hours >= 1e6) return Math.round(hours / 1e6) + "m";
       if (hours >= 1e3) return Math.round(hours / 1e3) + "k";
       return hoursText(hours);
     }
 
     function collectiveDisplayValue(hours) {
-      if (hours >= 1e9) {
-        return (hours / 1e9).toFixed(1).replace(/\.0$/, "") + "B";
-      }
-      if (hours >= 1e6) {
-        return Math.round(hours / 1e6).toLocaleString("en-GB") + "M";
-      }
-      if (hours >= 1e3) {
-        return Math.round(hours / 1e3).toLocaleString("en-GB") + "K";
-      }
+      if (hours >= 1e9) return (hours / 1e9).toFixed(1).replace(/\.0$/,"") + "B";
+      if (hours >= 1e6) return Math.round(hours / 1e6).toLocaleString("en-GB") + "M";
+      if (hours >= 1e3) return Math.round(hours / 1e3).toLocaleString("en-GB") + "K";
       return Math.round(hours).toLocaleString("en-GB");
     }
+
     function bigHoursText(hours) {
       if (hours >= 1e9) return (hours / 1e9).toFixed(2) + " billion";
-      if (hours >= 1e6) return (hours / 1e6).toFixed(1).replace(/\.0$/, "") + " million";
+      if (hours >= 1e6) return (hours / 1e6).toFixed(1).replace(/\.0$/,"") + " million";
       return Math.round(hours).toLocaleString("en-GB");
     }
 
     function heroHoursParts(hours) {
       if (hours >= 1e9) {
         return {
-          value: (hours / 1e9).toFixed(1).replace(/\.0$/, ""),
-          scale: "BILLION"
+          value:(hours / 1e9).toFixed(1).replace(/\.0$/,""),
+          scale:"BILLION"
         };
       }
       if (hours >= 1e6) {
         return {
-          value: Math.round(hours / 1e6).toLocaleString("en-GB"),
-          scale: "MILLION"
+          value:Math.round(hours / 1e6).toLocaleString("en-GB"),
+          scale:"MILLION"
         };
       }
       if (hours >= 1e3) {
         return {
-          value: Math.round(hours / 1e3).toLocaleString("en-GB"),
-          scale: "THOUSAND"
+          value:Math.round(hours / 1e3).toLocaleString("en-GB"),
+          scale:"THOUSAND"
         };
       }
-      return {
-        value: Math.round(hours).toLocaleString("en-GB"),
-        scale: ""
-      };
+      return { value:Math.round(hours).toLocaleString("en-GB"), scale:"" };
     }
 
     const byCollective = rankings.slice().sort(
-      (a, b) => collHoursOf(b) - collHoursOf(a) || b.sleepHours - a.sleepHours
+      (a,b) => collHoursOf(b) - collHoursOf(a) || Number(b.sleepHours) - Number(a.sleepHours)
     );
-    const collRank = new Map(byCollective.map((row, index) => [row.team, index + 1]));
+    const collRank = new Map(byCollective.map((row,index) => [row.team,index + 1]));
     let sortMode = "collective";
+    let rankingExpanded = false;
 
     byCollective.forEach(row => {
       const option = document.createElement("option");
@@ -1016,82 +1042,178 @@
 
     function filteredRows() {
       const term = search.value.trim().toLowerCase();
-      return rankings.filter(row => row.team.toLowerCase().includes(term));
+      if (!term) return rankings.slice();
+      return rankings.filter(row =>
+        row.team.toLowerCase().includes(term) ||
+        String(row.city || "").toLowerCase().includes(term)
+      );
     }
 
     function activeRows() {
       const rows = filteredRows();
       if (sortMode === "collective") {
-        return rows.slice().sort((a, b) => collHoursOf(b) - collHoursOf(a) || b.sleepHours - a.sleepHours);
+        return rows.sort((a,b) =>
+          collHoursOf(b) - collHoursOf(a) ||
+          Number(b.sleepHours) - Number(a.sleepHours) ||
+          a.team.localeCompare(b.team)
+        );
       }
-      return rows.slice().sort((a, b) => a.rank - b.rank);
+      return rows.sort((a,b) =>
+        Number(b.sleepHours) - Number(a.sleepHours) ||
+        collHoursOf(b) - collHoursOf(a) ||
+        a.team.localeCompare(b.team)
+      );
+    }
+
+    function setCollapsedHeight() {
+      const searching = search.value.trim() !== "";
+      const allRows = activeRows();
+
+      if (searching || rankingExpanded || allRows.length <= COLLAPSED_COUNT) {
+        rankingViewport.style.maxHeight = "none";
+        rankingFade.hidden = true;
+        rankingExpandWrap.hidden = searching || allRows.length <= COLLAPSED_COUNT;
+        return;
+      }
+
+      rankingExpandWrap.hidden = false;
+      rankingFade.hidden = false;
+
+      requestAnimationFrame(() => {
+        const header = rankingViewport.querySelector("thead");
+        const renderedRows = [...rankingBody.querySelectorAll("tr")];
+        if (renderedRows.length <= COLLAPSED_COUNT) {
+          rankingViewport.style.maxHeight = "none";
+          return;
+        }
+
+        const tenRowsHeight = renderedRows
+          .slice(0,COLLAPSED_COUNT)
+          .reduce((sum,row) => sum + row.getBoundingClientRect().height,0);
+
+        const nextRowHeight = renderedRows[COLLAPSED_COUNT].getBoundingClientRect().height;
+        const headerHeight = header ? header.getBoundingClientRect().height : 0;
+        rankingViewport.style.maxHeight =
+          `${Math.ceil(headerHeight + tenRowsHeight + nextRowHeight)}px`;
+      });
     }
 
     function renderTable(activeTeam) {
-      rankingBody.innerHTML = activeRows().map(row => {
-        const shownRank = sortMode === "collective" ? collRank.get(row.team) : row.rank;
+      const allRows = activeRows();
+      const searching = search.value.trim() !== "";
+      const rowsToRender = searching || rankingExpanded
+        ? allRows
+        : allRows.slice(0,COLLAPSED_COUNT + 1);
+
+      rankingBody.innerHTML = rowsToRender.map((row,index) => {
+        const shownRank = sortMode === "collective"
+          ? collRank.get(row.team)
+          : rankings
+              .slice()
+              .sort((a,b) =>
+                Number(b.sleepHours) - Number(a.sleepHours) ||
+                collHoursOf(b) - collHoursOf(a) ||
+                a.team.localeCompare(b.team)
+              )
+              .findIndex(item => item.team === row.team) + 1;
+
         return `
-        <tr data-team="${row.team}" class="${row.team === activeTeam ? "active" : ""}">
-          <td><span class="rank-badge ${shownRank <= 3 ? "rank-top" : ""}">${shownRank}</span></td>
-          <td><b>${row.team}</b><br><small style="color:var(--muted)">${row.city}</small></td>
-          <td class="hours-cell">${collectiveDisplayValue(collHoursOf(row))} Hours</td>
-          <td>${hoursText(row.sleepHours)}h</td>
-          <td>${row.affectedMatches}/${row.matches}</td>
-          <td><span class="cluster">${row.cluster || "—"}</span></td>
-        </tr>
-      `;
+          <tr data-team="${row.team}" class="${row.team === activeTeam ? "active" : ""}">
+            <td><span class="rank-badge ${shownRank <= 3 ? "rank-top" : ""}">${shownRank}</span></td>
+            <td><b>${row.team}</b><br><small style="color:var(--muted)">${row.city || ""}</small></td>
+            <td class="hours-cell">${collectiveDisplayValue(collHoursOf(row))} Hours</td>
+            <td>${hoursText(Number(row.sleepHours || 0))}h</td>
+            <td>${Number(row.affectedMatches || 0)}/${Number(row.matches || 0)}</td>
+            <td><span class="cluster">${row.cluster || "—"}</span></td>
+          </tr>
+        `;
       }).join("");
 
       rankingBody.querySelectorAll("tr").forEach(tr => {
-        tr.addEventListener("click", () => {
+        tr.addEventListener("click",() => {
           teamSelect.value = tr.dataset.team;
           renderTeam(tr.dataset.team);
-          window.scrollTo({ top: document.querySelector(".main-grid").offsetTop - 80, behavior: "smooth" });
+          window.scrollTo({
+            top:document.querySelector(".main-grid").offsetTop - 80,
+            behavior:"smooth"
+          });
         });
       });
+
+      rankingExpand.setAttribute("aria-expanded",String(rankingExpanded));
+      rankingExpandLabel.textContent = `View all ${rankings.length} fanbases`;
+
+      setCollapsedHeight();
+      if (rankingExpanded) rankingExpandWrap.hidden = true;
     }
 
     function renderTeam(teamName) {
       const row = rankings.find(item => item.team === teamName) || rankings[0];
+      if (!row) return;
 
       const coll = collHoursOf(row);
       const cRank = collRank.get(row.team);
+      const hero = heroHoursParts(coll);
 
       document.getElementById("cardTeam").textContent = `${row.team} supporters`;
       document.getElementById("cardHours").textContent = collectiveDisplayValue(coll);
       document.getElementById("cardRank").textContent = `#${cRank} biggest collective sleep toll`;
-      document.getElementById("cardPerFan").textContent = `${hoursText(row.sleepHours)}h per supporter`;
+      document.getElementById("cardPerFan").textContent = `${hoursText(Number(row.sleepHours || 0))}h per supporter`;
       document.getElementById("cardAffected").textContent =
-        `${row.affectedMatches} of ${row.matches} matches in the sleep window`;
+        `${Number(row.affectedMatches || 0)} of ${Number(row.matches || 0)} matches in the sleep window`;
       document.getElementById("statYears").textContent = yearsText(collYearsOf(row));
-      document.getElementById("statMean").textContent = `${row.meanHours.toFixed(1)}h`;
-      document.getElementById("statZone").textContent = row.city;
+      document.getElementById("statMean").textContent = `${Number(row.meanHours || 0).toFixed(1)}h`;
+      document.getElementById("statZone").textContent = row.city || "—";
 
-      const heroParts = heroHoursParts(coll);
-      document.getElementById("heroHours").textContent = heroParts.value;
-      document.getElementById("heroScale").textContent = heroParts.scale;
+      document.getElementById("heroHoursValue").textContent = hero.value;
+      document.getElementById("heroHoursScale").textContent = hero.scale;
       document.getElementById("heroTeam").textContent = row.team;
       document.getElementById("heroYears").textContent = yearsText(collYearsOf(row));
       document.getElementById("heroLabel").textContent = cRank === 1
         ? `${row.team} supporters carry the biggest collective sleep toll.`
-        : `${row.team} supporters rank #${cRank} for collective toll and #${row.rank} per fan.`;
+        : `${row.team} supporters rank #${cRank} for collective toll.`;
 
       document.getElementById("matchTitle").textContent = `${row.team} match log`;
-      document.getElementById("matchList").innerHTML = row.details.map(match => `
-        <div class="match">
-          <div>
-            <b>v ${match.opponent}</b>
-            <small>${match.stage} · ${match.localKickoff} · ${match.venue}</small>
-          </div>
-          <div class="match-hours">${hoursText(match.sleepHours)}h</div>
-        </div>
-      `).join("");
+      const details = Array.isArray(row.details) ? row.details : [];
+      document.getElementById("matchList").innerHTML = details.length
+        ? details.map(match => `
+            <div class="match">
+              <div>
+                <b>v ${match.opponent}</b>
+                <small>${match.stage} · ${match.localKickoff}${match.venue ? ` · ${match.venue}` : ""}</small>
+              </div>
+              <div class="match-hours">${hoursText(Number(match.sleepHours || 0))}h</div>
+            </div>
+          `).join("")
+        : `<p class="empty-log">Match details will appear after the live data build runs.</p>`;
 
       renderTable(row.team);
     }
 
-    teamSelect.addEventListener("change", () => renderTeam(teamSelect.value));
-    search.addEventListener("input", () => renderTable(teamSelect.value));
+    teamSelect.addEventListener("change",() => renderTeam(teamSelect.value));
+
+    search.addEventListener("input",() => {
+      renderTable(teamSelect.value);
+    });
+
+    sortCollective.addEventListener("click",() => {
+      sortMode = "collective";
+      sortCollective.classList.add("active");
+      sortPerFan.classList.remove("active");
+      renderTable(teamSelect.value);
+    });
+
+    sortPerFan.addEventListener("click",() => {
+      sortMode = "perFan";
+      sortPerFan.classList.add("active");
+      sortCollective.classList.remove("active");
+      renderTable(teamSelect.value);
+    });
+
+    rankingExpand.addEventListener("click",() => {
+      rankingExpanded = true;
+      renderTable(teamSelect.value);
+    });
 
     const searchToggle = document.getElementById("searchToggle");
     const teamSearch = document.getElementById("teamSearch");
@@ -1099,15 +1221,33 @@
     const pickerLabel = document.getElementById("pickerLabel");
     let searchOpen = false;
 
+    function searchMatches(term) {
+      const query = term.trim().toLowerCase();
+      if (!query) return byCollective.slice(0,8);
+      return byCollective
+        .filter(row => row.team.toLowerCase().includes(query))
+        .slice(0,8);
+    }
+
+    function renderSuggestions(term) {
+      const matches = searchMatches(term);
+      teamSuggest.innerHTML = matches.map(row =>
+        `<button type="button" data-team="${row.team}">${row.team}</button>`
+      ).join("");
+      teamSuggest.querySelectorAll("button").forEach(button => {
+        button.addEventListener("click",() => chooseTeam(button.dataset.team));
+      });
+    }
+
     function openSearch() {
       searchOpen = true;
       teamSelect.hidden = true;
       teamSearch.hidden = false;
       teamSuggest.hidden = false;
       pickerLabel.textContent = "Search fanbase";
-      pickerLabel.setAttribute("for", "teamSearch");
-      searchToggle.setAttribute("aria-pressed", "true");
-      searchToggle.setAttribute("aria-label", "Close search");
+      pickerLabel.setAttribute("for","teamSearch");
+      searchToggle.setAttribute("aria-pressed","true");
+      searchToggle.setAttribute("aria-label","Close search");
       teamSearch.value = "";
       renderSuggestions("");
       teamSearch.focus();
@@ -1119,29 +1259,9 @@
       teamSearch.hidden = true;
       teamSuggest.hidden = true;
       pickerLabel.textContent = "Fanbase";
-      pickerLabel.setAttribute("for", "teamSelect");
-      searchToggle.setAttribute("aria-pressed", "false");
-      searchToggle.setAttribute("aria-label", "Search for a fanbase");
-    }
-
-    function searchMatches(term) {
-      const query = term.trim().toLowerCase();
-      if (!query) return byCollective.slice(0, 8);
-      return byCollective.filter(row => row.team.toLowerCase().includes(query)).slice(0, 8);
-    }
-
-    function renderSuggestions(term) {
-      const rows = searchMatches(term);
-      if (!rows.length) {
-        teamSuggest.innerHTML = `<div class="suggest-empty">No fanbase matches that.</div>`;
-        return;
-      }
-      teamSuggest.innerHTML = rows.map(row =>
-        `<button type="button" data-team="${row.team}"><span class="suggest-rank">#${collRank.get(row.team)}</span>${row.team}</button>`
-      ).join("");
-      teamSuggest.querySelectorAll("button").forEach(btn => {
-        btn.addEventListener("click", () => chooseTeam(btn.dataset.team));
-      });
+      pickerLabel.setAttribute("for","teamSelect");
+      searchToggle.setAttribute("aria-pressed","false");
+      searchToggle.setAttribute("aria-label","Search for a fanbase");
     }
 
     function chooseTeam(team) {
@@ -1150,9 +1270,9 @@
       closeSearch();
     }
 
-    searchToggle.addEventListener("click", () => searchOpen ? closeSearch() : openSearch());
-    teamSearch.addEventListener("input", () => renderSuggestions(teamSearch.value));
-    teamSearch.addEventListener("keydown", event => {
+    searchToggle.addEventListener("click",() => searchOpen ? closeSearch() : openSearch());
+    teamSearch.addEventListener("input",() => renderSuggestions(teamSearch.value));
+    teamSearch.addEventListener("keydown",event => {
       if (event.key === "Enter") {
         const first = searchMatches(teamSearch.value)[0];
         if (first) chooseTeam(first.team);
@@ -1160,20 +1280,24 @@
       if (event.key === "Escape") closeSearch();
     });
 
-    document.getElementById("copyPost").addEventListener("click", async () => {
+    document.getElementById("copyPost").addEventListener("click",async () => {
       const row = rankings.find(item => item.team === teamSelect.value);
+      if (!row) return;
       const post =
         `${row.team} fans have collectively lost ${bigHoursText(collHoursOf(row))} hours of sleep ` +
         `to this World Cup — that's ${yearsText(collYearsOf(row))} years. ` +
-        `We ranked all 48 fanbases. Find yours: [link]`;
+        `We ranked all 48 fanbases. Find yours: https://fifaworldcupsleep.me/`;
+
       await navigator.clipboard.writeText(post);
       const button = document.getElementById("copyPost");
       button.textContent = "Copied";
-      setTimeout(() => button.textContent = "Copy launch post", 1200);
+      setTimeout(() => button.textContent = "Copy launch post",1200);
     });
 
-    document.getElementById("downloadCard").addEventListener("click", () => {
+    document.getElementById("downloadCard").addEventListener("click",() => {
       const row = rankings.find(item => item.team === teamSelect.value);
+      if (!row) return;
+
       const canvas = document.createElement("canvas");
       canvas.width = 1200;
       canvas.height = 675;
@@ -1188,13 +1312,13 @@
 
       ctx.fillStyle = "rgba(3,26,45,.32)";
       ctx.beginPath();
-      ctx.arc(1120,-5,260,0,Math.PI*2);
+      ctx.arc(1120,-5,260,0,Math.PI * 2);
       ctx.fill();
 
       ctx.strokeStyle = "rgba(210,4,45,.42)";
       ctx.lineWidth = 70;
       ctx.beginPath();
-      ctx.arc(1110,0,190,0,Math.PI*2);
+      ctx.arc(1110,0,190,0,Math.PI * 2);
       ctx.stroke();
 
       const coll = collHoursOf(row);
@@ -1203,66 +1327,57 @@
       ctx.fillStyle = "#ffffff";
       ctx.font = "900 40px Arial";
       ctx.fillText("HOW MUCH SLEEP HAS YOUR FANBASE LOST?",70,82);
-
       ctx.font = "900 72px Arial";
       ctx.fillText(`${row.team.toUpperCase()} SUPPORTERS`,70,170);
-
       ctx.font = "900 150px Arial";
-      ctx.fillText(`${shortHours(coll).toUpperCase()} HOURS`,70,340);
-
+      ctx.fillText(`${collectiveDisplayValue(coll).toUpperCase()} HOURS`,70,340);
       ctx.font = "900 52px Arial";
       ctx.fillText(`#${cRank} BIGGEST COLLECTIVE SLEEP TOLL`,70,440);
-
       ctx.font = "700 36px Arial";
       ctx.fillText(`That's ${yearsText(collYearsOf(row))} years of sleep, combined`,70,510);
-
       ctx.font = "700 29px Arial";
-      ctx.fillText(`${hoursText(row.sleepHours)}h per supporter · ${row.affectedMatches} of ${row.matches} matches`,70,590);
+      ctx.fillText(
+        `${hoursText(Number(row.sleepHours || 0))}h per supporter · ` +
+        `${Number(row.affectedMatches || 0)} of ${Number(row.matches || 0)} matches`,
+        70,590
+      );
       ctx.textAlign = "right";
       ctx.fillText("Data via hermai.ai",1130,590);
       ctx.textAlign = "left";
 
       const link = document.createElement("a");
-      link.download = `${row.team.toLowerCase().replace(/[^a-z0-9]+/g,"-")}-sleep-index.png`;
+      link.download = `${row.team.toLowerCase().replace(/[^a-z0-9]+/g,"-")}-world-cup-sleep.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
     });
 
-    document.getElementById("sortCollective").addEventListener("click", () => setSort("collective"));
-    document.getElementById("sortPerFan").addEventListener("click", () => setSort("perfan"));
-    function setSort(mode) {
-      sortMode = mode;
-      document.getElementById("sortCollective").classList.toggle("active", mode === "collective");
-      document.getElementById("sortPerFan").classList.toggle("active", mode !== "collective");
-      renderTable(teamSelect.value);
+    function updateSnapshotNote() {
+      const date = new Date(snapshotUtc);
+      if (Number.isNaN(date.getTime())) return;
+      const text = new Intl.DateTimeFormat("en-GB",{
+        day:"numeric",
+        month:"long",
+        year:"numeric",
+        hour:"2-digit",
+        minute:"2-digit",
+        hour12:false,
+        timeZone:"UTC"
+      }).format(date);
+      document.getElementById("snapshotNote").textContent =
+        `Estimate based on completed matches through ${text} UTC.`;
     }
 
-    const snapshotDate = new Date(snapshotUtc);
-    document.getElementById("snapshotNote").textContent =
-      "Estimate based on completed matches through " +
-      snapshotDate.toLocaleString("en-GB", {
-        timeZone: "UTC", day: "numeric", month: "long", year: "numeric",
-        hour: "2-digit", minute: "2-digit"
-      }) + " UTC.";
+    window.addEventListener("resize",setCollapsedHeight);
+    updateSnapshotNote();
 
-    const TAGS = [
-      "Some fans lose matches. Others lose sleep.",
-      "Count the goals. We'll count the sheep.",
-      "You watched every match. But what did it cost?"
-    ];
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      let tagIndex = 0;
-      setInterval(() => {
-        tagIndex = (tagIndex + 1) % TAGS.length;
-        document.getElementById("tagline").textContent = TAGS[tagIndex];
-      }, 2000);
+    const initialTeam = rankings.some(row => row.team === "Japan")
+      ? "Japan"
+      : rankings[0]?.team;
+
+    if (initialTeam) {
+      teamSelect.value = initialTeam;
+      renderTeam(initialTeam);
     }
-
-    // Default to whichever fanbase carries the biggest collective toll right now,
-    // so the hero updates on each rebuild as new results land.
-    const leader = byCollective[0];
-    teamSelect.value = leader.team;
-    renderTeam(leader.team);
   </script>
 </body>
 </html>
