@@ -529,6 +529,71 @@
       font-weight:700;
     }
 
+    .ranking-viewport {
+      position:relative;
+      overflow:hidden;
+      transition:max-height .38s ease;
+    }
+    .ranking-fade {
+      position:absolute;
+      z-index:3;
+      left:0;
+      right:0;
+      bottom:0;
+      height:118px;
+      pointer-events:none;
+      background:linear-gradient(
+        to bottom,
+        rgba(6,43,73,0) 0%,
+        rgba(6,43,73,.76) 46%,
+        rgba(6,43,73,.98) 100%
+      );
+    }
+    .ranking-expand-wrap {
+      position:relative;
+      z-index:4;
+      display:flex;
+      justify-content:center;
+      padding:0 20px 22px;
+      margin-top:-18px;
+      background:linear-gradient(to bottom,rgba(6,43,73,.98),rgba(4,30,52,.96));
+    }
+    .ranking-expand-wrap[hidden] { display:none !important; }
+    .ranking-expand {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      min-width:230px;
+      border:0;
+      color:var(--white);
+      background:transparent;
+      padding:0 18px 8px;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .ranking-expand-icon {
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(255,255,255,.7);
+      border-radius:50%;
+      transition:background .2s ease;
+      background:rgba(3,26,45,.72);
+    }
+    .ranking-expand:hover .ranking-expand-icon,
+    .ranking-expand:focus-visible .ranking-expand-icon {
+      background:rgba(0,215,255,.14);
+      border-color:var(--cyan);
+    }
+    .ranking-expand-label {
+      font-family:"Barlow Condensed",sans-serif;
+      font-size:1.18rem;
+      letter-spacing:.045em;
+      text-transform:uppercase;
+    }
+
     .method {
       padding:0 0 64px;
     }
@@ -643,6 +708,9 @@
       th,td { padding:12px 8px; font-size:.88rem; }
       th:nth-child(5), td:nth-child(5),
       th:nth-child(6), td:nth-child(6) { display:none; }
+
+      .ranking-fade { height:96px; }
+      .ranking-expand-wrap { padding-bottom:18px; }
 
       .result-card { min-height:auto; padding:22px; }
       .card-tag { white-space:normal; width:auto; }
@@ -872,20 +940,40 @@
           <button class="sort-btn active" id="sortCollective" type="button">Biggest collective toll</button>
           <button class="sort-btn" id="sortPerFan" type="button">Most sleep-deprived per fan</button>
         </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>Fanbase</th>
-                <th>Collective toll</th>
-                <th>Hours per fan</th>
-                <th>Matches affected</th>
-                <th>Pattern</th>
-              </tr>
-            </thead>
-            <tbody id="rankingBody"></tbody>
-          </table>
+        <div class="ranking-viewport" id="rankingViewport">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Fanbase</th>
+                  <th>Collective toll</th>
+                  <th>Hours per fan</th>
+                  <th>Matches affected</th>
+                  <th>Pattern</th>
+                </tr>
+              </thead>
+              <tbody id="rankingBody"></tbody>
+            </table>
+          </div>
+          <div class="ranking-fade" id="rankingFade" aria-hidden="true"></div>
+        </div>
+
+        <div class="ranking-expand-wrap" id="rankingExpandWrap">
+          <button
+            class="ranking-expand"
+            id="rankingExpand"
+            type="button"
+            aria-expanded="false"
+            aria-controls="rankingBody"
+          >
+            <span class="ranking-expand-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 9l7 7 7-7"></path>
+              </svg>
+            </span>
+            <span class="ranking-expand-label">View all 48 fanbases</span>
+          </button>
         </div>
       </article>
     </section>
@@ -943,6 +1031,10 @@
     };
     const teamSelect = document.getElementById("teamSelect");
     const rankingBody = document.getElementById("rankingBody");
+    const rankingViewport = document.getElementById("rankingViewport");
+    const rankingFade = document.getElementById("rankingFade");
+    const rankingExpandWrap = document.getElementById("rankingExpandWrap");
+    const rankingExpand = document.getElementById("rankingExpand");
     const search = document.getElementById("search");
 
     const hoursText = value => Number.isInteger(value) ? String(value) : value.toFixed(1);
@@ -1006,6 +1098,8 @@
     );
     const collRank = new Map(byCollective.map((row, index) => [row.team, index + 1]));
     let sortMode = "collective";
+    const COLLAPSED_COUNT = 10;
+    let rankingExpanded = false;
 
     byCollective.forEach(row => {
       const option = document.createElement("option");
@@ -1027,8 +1121,51 @@
       return rows.slice().sort((a, b) => a.rank - b.rank);
     }
 
+    function setCollapsedHeight() {
+      const searching = search.value.trim() !== "";
+      const rows = activeRows();
+
+      if (searching || rankingExpanded || rows.length <= COLLAPSED_COUNT) {
+        rankingViewport.style.maxHeight = "none";
+        rankingFade.hidden = true;
+        rankingExpandWrap.hidden = true;
+        return;
+      }
+
+      rankingFade.hidden = false;
+      rankingExpandWrap.hidden = false;
+
+      requestAnimationFrame(() => {
+        const header = rankingViewport.querySelector("thead");
+        const renderedRows = [...rankingBody.querySelectorAll("tr")];
+
+        if (renderedRows.length <= COLLAPSED_COUNT) {
+          rankingViewport.style.maxHeight = "none";
+          return;
+        }
+
+        const tenRowsHeight = renderedRows
+          .slice(0, COLLAPSED_COUNT)
+          .reduce((sum, row) => sum + row.getBoundingClientRect().height, 0);
+
+        const nextRowHeight =
+          renderedRows[COLLAPSED_COUNT].getBoundingClientRect().height;
+
+        const headerHeight = header
+          ? header.getBoundingClientRect().height
+          : 0;
+
+        rankingViewport.style.maxHeight =
+          `${Math.ceil(headerHeight + tenRowsHeight + nextRowHeight)}px`;
+      });
+    }
+
     function renderTable(activeTeam) {
-      rankingBody.innerHTML = activeRows().map(row => {
+      const rows = activeRows();
+      const searching = search.value.trim() !== "";
+      const rowsToRender = rows;
+
+      rankingBody.innerHTML = rowsToRender.map(row => {
         const shownRank = sortMode === "collective" ? collRank.get(row.team) : row.rank;
         return `
         <tr data-team="${row.team}" class="${row.team === activeTeam ? "active" : ""}">
@@ -1049,6 +1186,8 @@
           window.scrollTo({ top: document.querySelector(".main-grid").offsetTop - 80, behavior: "smooth" });
         });
       });
+
+      setCollapsedHeight();
     }
 
     function renderTeam(teamName) {
@@ -1092,6 +1231,12 @@
 
     teamSelect.addEventListener("change", () => renderTeam(teamSelect.value));
     search.addEventListener("input", () => renderTable(teamSelect.value));
+
+    rankingExpand.addEventListener("click", () => {
+      rankingExpanded = true;
+      rankingExpand.setAttribute("aria-expanded", "true");
+      renderTable(teamSelect.value);
+    });
 
     const searchToggle = document.getElementById("searchToggle");
     const teamSearch = document.getElementById("teamSearch");
@@ -1257,6 +1402,8 @@
         document.getElementById("tagline").textContent = TAGS[tagIndex];
       }, 2000);
     }
+
+    window.addEventListener("resize", setCollapsedHeight);
 
     // Default to whichever fanbase carries the biggest collective toll right now,
     // so the hero updates on each rebuild as new results land.
